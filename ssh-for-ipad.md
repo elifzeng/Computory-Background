@@ -82,6 +82,7 @@
   
 ## The next time you open ipad
   Activete connecting in wingy
+  Active the item in `Port Forwarding`
   Open terminal in `Host` of `Termius`:
   `$ ssh username@host`
   
