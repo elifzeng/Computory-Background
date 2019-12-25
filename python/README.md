@@ -1,3 +1,15 @@
+```bash
+export PYTHONPATH=$PYTHONPATH:/home/zenglj/git/fullspace/examples/grepPDB
+./a.py
+```
+之后在grepPDB下运行`.py`就不用输入`python`了。如第二行直接输入`.py`文件路径即可。
+
+有时不知道某个class里有哪些方法，可用`ipython Tab`或者`dir(object)`查看可用方法。
+
+
+
+
+
 # Something I wrote before
 [link](https://github.com/elifzeng/extract-fragment/blob/master/README.md)  
 There are things about   
@@ -32,8 +44,4 @@ sys.argv[2]
 显示的是./tmp/*中第二个文件，而不是b，也就是说，现在sys.argv长度为1+50+3=54...令人难过  
 此时若想迭代./tmp/中的文件，可使用`for i in $(ls ./tmp/*); do python a.py $i a b c; done`
 
-```bash
-export PYTHONPATH=$PYTHONPATH:/home/zenglj/git/fullspace/examples/grepPDB
-./a.py
-```
-之后在grepPDB下运行`.py`就不用输入`python`了。如第二行直接输入`.py`文件路径即可。
+
