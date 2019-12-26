@@ -1,11 +1,15 @@
 ```bash
 export PYTHONPATH=$PYTHONPATH:/home/zenglj/git/fullspace/examples/grepPDB
 ./a.py
+# 之后在grepPDB下运行`.py`就不用输入`python`了。如第二行直接输入`.py`文件路径即可。
 ```
-之后在grepPDB下运行`.py`就不用输入`python`了。如第二行直接输入`.py`文件路径即可。
 
 有时不知道某个class里有哪些方法，可用`ipython Tab`或者`dir(object)`查看可用方法。
-
+```python
+import fpdb
+# 报错 : ModuleNotFoundError: No module named 'fpdb'
+```
+此时在terminal中运行, ` export PYTHONPATH=$PYTHONPATH:/home/zenglj/git/fullspace/examples/grepPDB/fpdb`，即可。
 
 
 
