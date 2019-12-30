@@ -4,17 +4,38 @@ Meaning of `queues` `slots` `job script` `job id` `array job` `tasks` `modules`.
 其他可见`Hand Book`
 
 ## Example
-This is a job script named *qsub-test*.
+This is a job script named *test1,sh*.
+```bash
+#$ -q honda
+#$ -o /home/lzeng02/qusb-test/log/
+#$ -e /home/lzeng02/qusb-test/log/
+
+for i in $(seq 1 5); do
+     echo -ne "\r########## $i"
+     sleep 1
+done
+
+echo -e  "\n\nCompleted."
+```
+run `qsub test1.sh` and `qstat` (or `watch qstat`)on terminal:  
+![image](https://user-images.githubusercontent.com/52747634/71582419-23b4a300-2b45-11ea-84c9-030032c65a94.png)  
+if there is something wrong, the state `Eqw` can be seen:  
+
+![image](https://user-images.githubusercontent.com/52747634/71582541-a89fbc80-2b45-11ea-91f2-899d36ca120c.png)  
+and you can track its state by jobID `qstat -j jobID`.And Delete this job by `qdel jobID`
+
+
+This is a job script named *qsub-test*. You can see more by `man qsub`.
 ```bash
 #! /bin/bash
 #$ -q honda   #-q <queue_name> 指定任务队列
-##$ -pe honda 10 #-pe <parallel_environment_name> <num_core> parallel_environment设定并行环境
+##$ -pe honda 10 #-pe <parallel_environment_name> <num_core> 设定并行环境 parallel_environment是啥见handbook最下 Submit CPU job
 #$ -l hostname=n125.hn.org  # 若要指定不使用哪台主机，则为-l hostname=！n125.hn.org 
 #$ -t 100-125 # <FIRST>-<LAST>:<STEPSIZE>
 #$ -o /home/lzeng02/qsub-test/log/
 
-##$ -e /home/lzeng02/qsub-test/log/
-#$ -j y
+##$ -e /home/lzeng02/qsub-test/log/ # 标准错误输出路径
+#$ -j y # -j y[es]|n[o] Specifies whether or not the standard error stream of the job is merged into the standard output stream.
 
 printf "%10s: %10s\n" "JOB_ID" "$JOB_ID"
 printf "%10s: %10s\n" "JOB_NAME" "$JOB_NAME"
@@ -34,3 +55,4 @@ done
 
 echo -e  "\n\nCompleted."
 ```
+
