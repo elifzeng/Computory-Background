@@ -19,9 +19,34 @@ the `datatype` describes how it is stored.Data types are categorized into 11 cla
 ## Attributes
 _See more in chapter 8 in User\_Guide_  
 One of the best features of HDF5 is that you can **store metadata right next to the data it describes**. All groups and datasets support attached named bits of data called `attributes`.  
-An attribute has two parts: name and value(s).  
+An attribute has two parts: name and value(s).
+`dataset.attr['dtype'] = 'integer'` to create a attribute (the same for group), and `dataset.attr.get('dtype')` to retrieve name.  
 
 ## [String in h5py](http://docs.h5py.org/en/stable/strings.html)
 **All strings in HDF5 hold encoded text.**
 `h5py` exposes Fixed-length ASCII (NumPy `S` type) , **Variable-length UTF-8 (Python 2 `unicode`, Python 3 `str`)** and Variable-length ASCII (Python 2 `str`, Python 3 `bytes`)  
-To understand `Fixed-length` or some other terms of string, see [this](https://tech.youzan.com/strings/).
+To understand `Fixed-length` and some other terms of string, see [this](https://tech.youzan.com/strings/). And then learn how h5py [represent special type](http://docs.h5py.org/en/2.9.0/strings.html?highlight=string).  
+```ipython
+In [7]: dt = h5py.special_dtype(vlen=str)  
+
+In [8]: ds1_2 = f.create_dataset('ds1_2',(20,), dtype=dt)  
+Out[8]: <HDF5 dataset "ds1_2": shape (20,), type "|O">  
+
+In [10]: ds1_2  
+Out[10]: <HDF5 dataset "ds1_2": shape (20,), type "|O">  
+
+In [17]: ds1_2.value  
+Out[17]: 
+array(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+       '', '', ''], dtype=object)  
+```
+## give data to dataset
+```python
+arr = numpy.arange(100).reshape((10,10))
+dset = f.create_dataset("MyDataset", data=arr)
+```
+
+
+
+
+
