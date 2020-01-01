@@ -20,3 +20,8 @@ the `datatype` describes how it is stored.Data types are categorized into 11 cla
 _See more in chapter 8 in User\_Guide_  
 One of the best features of HDF5 is that you can **store metadata right next to the data it describes**. All groups and datasets support attached named bits of data called `attributes`.  
 An attribute has two parts: name and value(s).  
+
+## [String in h5py](http://docs.h5py.org/en/stable/strings.html)
+**All strings in HDF5 hold encoded text.**
+`h5py` exposes Fixed-length ASCII (NumPy `S` type) , **Variable-length UTF-8 (Python 2 `unicode`, Python 3 `str`)** and Variable-length ASCII (Python 2 `str`, Python 3 `bytes`)  
+To understand `Fixed-length` or some other terms of string, see [this](https://tech.youzan.com/strings/).
