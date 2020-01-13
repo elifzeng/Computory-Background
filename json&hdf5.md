@@ -63,7 +63,11 @@ f = open('a.txt','w')
 f.writelines()
 f.close()
 ```
-此时`a.txt`中只有第一层字典的key值（abc）。[解决办法](https://www.cnblogs.com/xiexiaokui/p/10788828.html)：  
+此时`a.txt`中只有第一层字典的key值:
+```txt
+abc
+```
+[解决办法](https://www.cnblogs.com/xiexiaokui/p/10788828.html)：  
 ```python
 import json
 js = json.dumps(d1) # json.dumps 用于将 Python 对象编码成 JSON 字符串。
