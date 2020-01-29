@@ -46,6 +46,10 @@ sys.argv[2]
 ```
 
 显示的是./tmp/*中第二个文件，而不是b，也就是说，现在sys.argv长度为1+50+3=54...令人难过  
-此时若想迭代./tmp/中的文件，可使用`for i in $(ls ./tmp/*); do python a.py $i a b c; done`
+此时若想迭代./tmp/中的文件，可使用`for i in $(ls ./tmp/*); do python a.py $i a b c; done`  
 
-
+python是动态类型的语言，对象与引用分离。
+```python
+a = 1
+```
+`a` 为引用，`1` 为对象。利用上述赋值语句，将引用`a`指向对象`1`。
