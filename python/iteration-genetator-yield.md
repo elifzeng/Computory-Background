@@ -25,6 +25,62 @@ print(type(func())) # <class 'int'>
 print(type(gen()))  # <class 'generator'>
 ```
 如果一个函数定义中包含 yield 表达式，那么该函数是一个生成器函数（而非普通函数）。实际上，yield 仅能用于定义生成器函数。  
+
+yield 和 return 有很大差别，当函数运行到 return 所在代码行后就会终止，而当函数运行到 yield 所在代码行后会先将结果返回给调用它的`for loop`，随后接着yield所在行下一行继续执行：  
+```python
+def yield_test(n):  
+    for i in range(n):  
+        # return call(i)
+        yield call(i) 
+        print("i=",i)  
+    #做一些其它的事情      
+    print("do something.")      
+    print("end.")  
+  
+def call(i):  
+    return i*2  
+  
+#使用for循环  
+for j in yield_test(5):  
+    print(j,",")  
+```
+结果：
+```bash
+0 ,
+i= 0
+2 ,
+i= 1
+4 ,
+i= 2
+6 ,
+i= 3
+8 ,
+i= 4
+do something.
+end.
+```
+```python
+def yield_test(n):  
+    for i in range(n):  
+        return call(i)
+        # yield call(i) 
+        print("i=",i)  
+    #做一些其它的事情      
+    print("do something.")      
+    print("end.")  
+  
+def call(i):  
+    return i*2  
+  
+#使用for循环  
+# for j in yield_test(5):  
+#     print(j,",")  
+print(yield_test(5))
+```
+运行到`return call(i)` 后终止，返回call(0)，此时yield_test(5)为一`int`，值为0。结果：  
+```
+0
+```
 #### yield 的好处
 在很多时候，我们只是需要逐个顺序访问容器内的元素。大多数时候，我们不需要「一口气获取容器内所有的元素」。比方说，顺序访问容器内的前 5 个元素，可以有两种做法：
 
