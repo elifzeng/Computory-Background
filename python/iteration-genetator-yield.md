@@ -26,7 +26,7 @@ print(type(gen()))  # <class 'generator'>
 ```
 如果一个函数定义中包含 yield 表达式，那么该函数是一个生成器函数（而非普通函数）。实际上，yield 仅能用于定义生成器函数。  
 
-yield 和 return 有很大差别，当函数运行到 return 所在代码行后就会终止，而当函数运行到 yield 所在代码行后会先将结果返回给调用它的`for loop`，随后接着yield所在行下一行继续执行：  
+yield 和 return 有很大差别，当函数运行到 return 所在代码行后就会终止，而当函数运行到 yield 所在代码行后会先‘冻结’，将生成的值返回给调用它的`for loop`，随后再接着yield所在行的**下一行**继续执行：  
 ```python
 def yield_test(n):  
     for i in range(n):  
