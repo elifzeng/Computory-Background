@@ -58,4 +58,25 @@ done
 
 echo -e  "\n\nCompleted."
 ```
+# A Instance Example
 
+```bash
+#! /bin/bash
+#$ -q honda
+#$ -pe honda 20   
+#$ -l hostname=n110.hn.org  
+#$ -o /home/lzeng02/qsub-test/log/ 
+#$ -e /home/lzeng02/qsub-test/log/
+
+
+for i in $(ls /home/lzeng02/data/extra_1/superimp_pair/ACEM*) 
+do
+python make_matrix.py $i > matrix
+touch log
+nmrclust < nmrclust.inp > log
+j=$(printf $i | cut -d '/' -f 7| cut -d '.' -f 1)
+k="${j}_log"
+mv log $k
+mv $k /home/lzeng02/data/extra_1/nmrclust_log/
+done
+```
