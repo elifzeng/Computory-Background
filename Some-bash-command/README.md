@@ -13,6 +13,8 @@ $ ls -l | grep "^-" | wc -l
 ```
 该指令不包括子目录，若要查看子目录见[link](http://noahsnail.com/2017/02/07/2017-02-07-Linux%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6%E6%95%B0%E7%9B%AE/)。
 
+令人昏厥的[vim命令总结](https://www.cnblogs.com/yangjig/p/6014198.html)
+
 今天把CPU负荷跑爆了orz
 ```bash
 $ w
