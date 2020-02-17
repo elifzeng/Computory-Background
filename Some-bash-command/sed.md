@@ -8,4 +8,5 @@
 所有在模板test和check所确定的范围内的行都被打印：  
 '''bash
 sed -n '/test/,/check/p' file
+sed -n '/MODEL        17$/,/ENDMDL/p' PRPA_PRPA.origin.pdb > a # 17后加$表示以17结尾
 '''
