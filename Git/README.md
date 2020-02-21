@@ -10,7 +10,12 @@ Please make sure you have the correct access rights
 and the repository exists.
 ```
 此时需要将这台电脑的公钥加到github上  
-![image](https://user-images.githubusercontent.com/52747634/71792098-547b6780-3072-11ea-8fc5-7c11a9ce6e02.png)
+![image](https://user-images.githubusercontent.com/52747634/71792098-547b6780-3072-11ea-8fc5-7c11a9ce6e02.png)  
+
+```bash
+$ git help [cmd] # 查看帮助文档
+```
+
 # 基本概念
 Git包括：【工作区】—git add—【暂存区】—git commit—【本地库】
 # Git 命令行操作
@@ -54,11 +59,23 @@ Date:   Fri Feb 14 13:44:54 2020 +0800
 在这里只列出了部分的commit，第一行第二部分内容为提交索引，由哈希函数算出。括号里的`HEAD`指针表示现在处于哪个分支和哪个版本。
 ```bash
 $ git log --pretty=oneline #每个提交以一行显示
-$ git log --oneline # 更简洁，哈希值只显示一部分
-$ git reflog # 显示回溯到某版本需要n步 HEAD@{n}
+$ git log --oneline # 更简洁，哈希值只显示一部分，只能显示当前及以前的版本
+$ git reflog # 显示回溯到某版本需要n步 HEAD@{n}【推荐】
 ```
 #### 版本前进回退
 推荐使用`基于索引值`操作。（此外还有基于`^`符号和基于`~`符号的操作）
 ```bash
 $ git reset --hard fa9d29b # 此处的索引值为哈希值的一部分（通过git reglog获得）
 ```
+**reset 命令的三个参数对比**
+原本三区状态是一致的。使用`git reset --[options]`命令后对应区的状态会发生变化。
+1. `--soft` 仅仅在本地库以移动HEAD指针，不会去动工作区(index file)和暂存区(working tree)。
+2. `--mixed` 在本地库移动HEAD指针，且重置暂存区。
+3. `--hard` 在本地库移动HEAD指针，重置暂存区，重置工作区。
+#### 删除文件及找回
+```bash
+$ rm [filename] # 现在本地库删除(此时可以用git status查看状态)
+$ git add [filename]
+$ git commit -m 'lsdkjflsdj' [filename]
+```
+也就是说，git上添加了该文件被删除的记录。当回退到以前的版本状态时，该删除的文件还能被找回。而当删除文件提交到暂存区而未提交到本地库时，可通过`git reset`找回（参看`git status`提示）。
