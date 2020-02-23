@@ -67,7 +67,7 @@ $ git reflog # 显示回溯到某版本需要n步 HEAD@{n}【推荐】
 ```bash
 $ git reset --hard fa9d29b # 此处的索引值为哈希值的一部分（通过git reglog获得）
 ```
-**reset 命令的三个参数对比**
+*reset 命令的三个参数对比*（了解）
 原本三区状态是一致的。使用`git reset --[options]`命令后对应区的状态会发生变化。
 1. `--soft` 仅仅在本地库以移动HEAD指针，不会去动工作区(index file)和暂存区(working tree)。
 2. `--mixed` 在本地库移动HEAD指针，且重置暂存区。
@@ -78,4 +78,32 @@ $ rm [filename] # 现在本地库删除(此时可以用git status查看状态)
 $ git add [filename]
 $ git commit -m 'lsdkjflsdj' [filename]
 ```
-也就是说，git上添加了该文件被删除的记录。当回退到以前的版本状态时，该删除的文件还能被找回。而当删除文件提交到暂存区而未提交到本地库时，可通过`git reset`找回（参看`git status`提示）。
+也就是说，git上添加了该文件被删除的记录。当**回退到以前的版本状态**时，该删除的文件还能被找回。而当删除文件提交到暂存区而**未提交到本地库**时，可通过`git reset`找回（参看`git status`提示）。  
+#### 比较文件差异
+```bash
+$ git diff [filename] # 将工作区文件和暂存区进行比较
+$ git diff [本地库中历史版本号] [filename] # 将工作区文件和本地库历史记录比较
+$ git diff #不带文件名可比较多个文件
+```
+### 分支管理
+在版本控制过程中，使用多条线同时推进多个任务。  
+好处：
+1. 同时并行推进多个功能开发，提高开发效率
+2. 各个分支在开发过程中，如果某一个分支开发失败，不会对其他分支有任何影响。失败的分支删除重新开始即可。
+```bash
+$ git branch -v # 查看分支及分支状态
+$ git branch [branchname] # 创建一个新的分支
+$ git checkout [branchname] # 切换分支
+$ git merge [branchname]#合并分支,先切换到要合并到的分支上(如要把branch合并到master上，就先切换到master分支)，再执行merge命令
+```
+解决合并分支**冲突**：
+```txt
+aaaaaaa
+<<<<<<< HEAD
+sdjfhaisdfi
+=======
+>>>>>>> master
+isudhfksad
+...
+```
+上面文段从`HEAD`行到`=======`行之间的，为当前分子内容，`=======`到`master`之间的，为另一分支内容。不需要哪一部分就直接在文档里删掉。**注**：merge后`git commit`后不能带文件名，否则会报错。
