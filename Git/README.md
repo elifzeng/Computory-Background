@@ -107,3 +107,15 @@ isudhfksad
 ...
 ```
 上面文段从`HEAD`行到`=======`行之间的，为当前分子内容，`=======`到`master`之间的，为另一分支内容。不需要哪一部分就直接在文档里删掉。**注**：merge后`git commit`后不能带文件名，否则会报错。
+### 远程库
+```bash
+git remote -v # 查看已有远程库地址（就是clone时用的那个地址）
+git remote add [alias] [repository address] # 将远程库地址添加到本地Git上，并取了个别名
+git push [alias] [branch name ] # 推送到远程库
+git clone [repository address] # 将别人的库克隆到本地
+```
+将别人的库克隆到本地时，会同时：
+1. 完整地把远程库克隆到本地
+2. 创建origin远程地址别名
+3. 初始化本地库（`.git`文件）
+添加成员：`log in github -> the repository you want to operate -> setting -> Manage access -> invite a collaborator -> Copy invite link -> send to the man you want to invite -> verify`
