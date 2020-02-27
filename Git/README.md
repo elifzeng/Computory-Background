@@ -108,6 +108,7 @@ isudhfksad
 ```
 上面文段从`HEAD`行到`=======`行之间的，为当前分子内容，`=======`到`master`之间的，为另一分支内容。不需要哪一部分就直接在文档里删掉。**注**：merge后`git commit`后不能带文件名，否则会报错。
 ### 远程库
+#### 创建远程库
 ```bash
 git remote -v # 查看已有远程库地址（就是clone时用的那个地址）
 git remote add [alias] [repository address] # 将远程库地址添加到本地Git上，并取了个别名
@@ -118,4 +119,30 @@ git clone [repository address] # 将别人的库克隆到本地
 1. 完整地把远程库克隆到本地
 2. 创建origin远程地址别名
 3. 初始化本地库（`.git`文件）
-添加成员：`log in github -> the repository you want to operate -> setting -> Manage access -> invite a collaborator -> Copy invite link -> send to the man you want to invite -> verify`
+添加成员：`log in github -> the repository you want to operate -> setting -> Manage access -> invite a collaborator -> Copy invite link -> send to the man you want to invite -> verify`  
+
+#### 拉取
+作为管理员，要将其他成员push到远程库的东西pull下来，而`pull`这一步包含了`fetch`&`merge`两个步骤。有时`pull`这个步骤会分为后两个步骤执行，这样可以在fetch到本地后先确认好文件内容，再与本地文件merge,比较保险。 
+```bash
+git fetch [alias] [branchname] #只是把远程内容下载到本地，但未修改本地库的文件
+git merge [alias/branchname]# 合并文件
+git pull [alias] [branchname]
+```
+#### 解决冲突
+1. 果不是基于GitHub远程库的最新版所做的修改，不能推送，必须先拉取。
+2. 拉取下来后，如果进入`冲突`状态，则按照“分支冲突解决”操作解决即可。
+#### 跨团队协作
+1. 在GitHub上将别的团队的库`fork`下来（点击页面右上角Fork按钮）
+2. clone下来，本地修改，然后推送到远程
+3. Pull requests（GitHub页面Wiki那一横栏的另一个按钮）-> New pull request 绿色按钮 -> Create pull request -> 在弹出来的页面中给对方发消息
+
+接下来由管理员点击`Pull request`查看对方刚刚发送的信息，可以在该页面进行对话。通过`Commits`栏查看有哪些提交，`Files changed`栏查看有哪些修改（即审核代码）。如果没问题，则点击`Merge pull request`按钮合并代码。然后通过`pull`拉取到本地。
+#### SSH登录
+适用于只有一个账户的时候。
+1. 进入家目录
+2. 删除原`.ssh/`,并通过`ssh-keygen`重新生成。
+```bash
+ssh-keygen -t rsa -C [mail@ddress]
+```
+将其中生成的公钥内容复制到GitHub上本教程页首截图所示页面上。
+3. 在本地通过`git remote add [alias] [ssh-address]`将远程库添加到本地。
