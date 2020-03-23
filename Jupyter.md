@@ -20,3 +20,6 @@ Open `jupyter_notebook_config.py` and find this line: `#c.NotebookApp.notebook_d
 Then remove the `#` and change it to `c.NotebookApp.notebook_dir = 'E:\Jupyter`  
 _The folder you added should have existed._  
 done!
+
+## Usage
+`Shift + Enter`
