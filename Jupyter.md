@@ -29,13 +29,13 @@ _我真的服了，有两个要用的模块nglview和mdtraj，前者不能在vsc
 _我靠我成功了，我太开心了_  
 Reference [1](https://stackoverflow.com/questions/43759610/how-to-add-python-3-6-kernel-alongside-3-5-on-jupyter) and [2](https://blog.stefanproell.at/2016/12/16/switching-kernels-using-python-2-7-and-python-3-5-in-jupyter-notebooks/)  
 Open `CMD.exe Prompt` from Anoconda and input
-'''cmd
+```cmd
 conda install ipykernel
 conda create -n Python3.6 python=3.6 # 创建一个内核为python3.6的，名字叫Python3.6的环境
 conda activate Python3.6 # 启用该环境，此时可以看到，命令提示符最左侧变为(Python3.6)
 python -m pip install --upgrade ipykernel # '-m' means 'module', 'python -m pip' tells python to run with the pip module as the main module since 'python pip' isn't understood, because pip isn't a command line argument that python understands (i.e., pip is a module).
 python -m ipykernel install --name Python3.6 # 新建了一个名字为Python3.6，内核为python3.6的内核
-'''
+```
 然后打开`Jupyterlab`，在菜单栏`Kernel`下拉菜单中选择`change kernel`，然后选择刚刚建的`Python3.6`，就行了。  
 ![image](https://user-images.githubusercontent.com/52747634/77303321-bc665380-6d2d-11ea-8e7e-a6d4770b17db.png)
 
