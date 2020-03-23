@@ -1,6 +1,6 @@
 # Jupyter
 JupyterLab is the next-generation web-based user interface for Project Jupyter. [There](https://jupyterlab.readthedocs.io/en/stable/) is the official document.  
-I've tried `Jupyterlab` on windows10 and here are some note about it.
+I've tried `Jupyterlab` on windows10 and here are some notes about it.
 ## Installation
 I've tried to install `Jupyterlab` by two ways: 
 1. cmd console with python 3.8 installed: `pip install Jupyterlab`
