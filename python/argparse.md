@@ -33,9 +33,9 @@ args = parser.parse_args()
 The `parse_args()` method actually returns some data from the options specified.  
 比如在上述例子中，`arg.square`会返回square选项对应的值（此处`square`是一个位置参数）。而`arg.charge`会返回charge选项对应的值或布尔值，
 这取决于`add_argument`中设置的参数（此处`charge`是一个可选参数）  
-**Notice**在终端运行时，输入选项(option)不讲究顺序。  
+*Notice*在终端运行时，输入选项(option)不讲究顺序。  
 
-add_argument()中的参数详见[here](https://docs.python.org/zh-cn/3.7/library/argparse.html#the-add-argument-method)  
+add_argument()中的参数详见[here](https://docs.python.org/zh-cn/3.7/library/argparse.html#the-add-argument-method) and [here](https://cloud.tencent.com/developer/section/1370514)（一个中文网站）  
 `help = ""` 添加帮助信息，在输入`python program_name -h` 时打印出来。  
  `type = ` 指定该参数应该输入的值的类型。  
  `action = ` action 命名参数指定了这个命令行参数应当如何处理。
