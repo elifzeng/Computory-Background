@@ -13,9 +13,9 @@ argparse --- 命令行选项、参数和子命令解析器
 import argparse
 parser = argparse.ArgumentParser(description=__doc__)
 ```
-方法ArgumentParser(prog=None, usage=None,description=None, epilog=None, parents=[],formatter_class=argparse.HelpFormatter, prefix_chars='-',fromfile_prefix_chars=None, argument_default=None,conflict_handler='error', add_help=True)  
+方法`ArgumentParser(prog=None, usage=None,description=None, epilog=None, parents=[],formatter_class=argparse.HelpFormatter, prefix_chars='-',fromfile_prefix_chars=None, argument_default=None,conflict_handler='error', add_help=True)`  
 
-这些参数都有默认值，当调用parser.print_help()或者运行程序时由于参数不正确(此时python解释器其实也是调用了pring_help()方法)时，会打印这些描述信息，一般只需要传递description参数。这个方法相当于一个构造函数，初始化一个对象，里面使用最多的参数就是description，用于描述该程序，`__doc__`返回该文件名称，也可以是`parser = argparse.ArgumentParser(description="the usage of the program")`。 
+这些参数都有默认值，当调用parser.print_help()或者运行程序时由于参数不正确(此时python解释器其实也是调用了print_help()方法)时，会打印这些描述信息，一般只需要传递description参数。这个方法相当于一个构造函数，初始化一个对象，里面使用最多的参数就是description，用于描述该程序，`__doc__`返回该文件名称，也可以是`parser = argparse.ArgumentParser(description="the usage of the program")`。 
 
 *Notice*  help是自带可选参数。
 ```python
