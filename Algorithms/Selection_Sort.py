@@ -9,14 +9,14 @@ def findSmallest(arr):
         if arr[i] < smallest:
             smallest = arr[i]
             smallest_index = i
-    return smallest_index
+    return smallest_index# , smallest
 
 
 # sort the array using seleciton sort method
 def selectionSort(arr):
     newArr = []
     for i in range(len(arr)):
-        smallest = findSmallest(arr)
+        smallest, b = findSmallest(arr)
         # print(smallest,arr.pop(smallest))
         newArr.append(arr.pop(smallest))  # list.pop()移除一个元素并返回该元素的值，参数为索引值
     return newArr
