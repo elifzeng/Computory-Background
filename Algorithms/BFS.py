@@ -30,7 +30,7 @@ def search(name):
         # print('person', person)
         if person not in searched:
             if person_is_seller(person):
-                # print(person + " is a mango seller !")
+                print(person + " is a mango seller !")
                 return True
             else:
                 search_queue += graph[person]  # 不是芒果销售商，就将此人的朋友都加入搜索队列
