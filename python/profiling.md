@@ -80,3 +80,50 @@ cProfile.run('re.compile("foo|bar")')
 2. about [decorator](https://www.liaoxuefeng.com/wiki/1016959663602400/1017451662295584)  简而言之，装饰器的目的就是增强函数功能的同时不去修改该函数的定义。
 *Notice*:通过写一个带参数的装饰器，就可以分析项目中的任何一个函数。当然，这需要`cProfile`和`pstats`作为接口。
 3. about module [pstats](https://docs.python.org/3/library/profile.html). pstats模块是python用来分析cProfile输出的二进制文件内容的。
+        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+对文中的性能分析装饰器进行注释：
+```python
+import cProfile
+import pstats
+import os
+# 性能分析装饰器定义
+def do_cprofile(filename):
+    """
+    Decorator for function profiling.
+    """
+    def wrapper(func):
+        def profiled_func(*args, **kwargs):
+            # Flag for do profiling or not.
+            # sys.getenv()方法用来获取环境变量，判断是否需要进行分析，因此可以通过设置环境变量“export PROFILING=y”来告诉程序是否进行性能分析。
+            DO_PROF = os.getenv("PROFILING") 
+            if DO_PROF:
+                profile = cProfile.Profile() # 创建一个cProfile对象
+                profile.enable() # 开始收集性能分析数据
+                result = func(*args, **kwargs) # 运行一遍目标函数
+                profile.disable() # 停止收集性能分析数据
+                # Sort stat by internal time.
+                sortby = "tottime"
+                ps = pstats.Stats(profile).sort_stats(sortby) # sort_stats(*keys)对报告列表进行排序，函数会依次按照传入的参数排序，关键词包括calls, cumtime等
+                ps.dump_stats(filename) # 把stats中的分析数据写入文件（二进制格式）
+            else: # 环境变量不匹配时不进行性能分析。
+                result = func(*args, **kwargs)
+            return result # 其实这里可以写成return func(*args, **kwargs)
+        return profiled_func
+    return wrapper
+```
+
+这样就可以在想进行性能分析的地方进行性能分析，例如我想分析MicroKineticModel类中的run方法：
+```python
+class MicroKineticModel(km.KineticModel):
+    # ...
+    # 应用装饰器来分析函数
+    @do_cprofile("./mkm_run.prof")
+    def run(self, **kwargs):
+        # ...
+```
+好了我先找个简单的程序试试（测试程序在`python/profile_test/`下）。  
+
+### 性能分析实践
+按照上文的方法，实现了通过装饰器对`fact`函数进行修饰来进行性能分析。现在，在正常运行程序的同时，指定路径下还会生成性能分析报告文件`prof_test.prof`。该文件是一个二进制文件，需要用python的pstats模块的接口来读取。
+
