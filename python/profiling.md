@@ -124,6 +124,68 @@ class MicroKineticModel(km.KineticModel):
 ```
 好了我先找个简单的程序试试（测试程序在`python/profile_test/`下）。  
 
+#### 另一种方法
+其实也可以使用cprofile直接对现有程序进行概要分析，在没有检测某几个特定函数的需求时，直接在`bash`输入：  
+`python -m cProfile -o outputfile.prof pythonfile.py`
+
 ### 性能分析实践
 按照上文的方法，实现了通过装饰器对`fact`函数进行修饰来进行性能分析。现在，在正常运行程序的同时，指定路径下还会生成性能分析报告文件`prof_test.prof`。该文件是一个二进制文件，需要用python的pstats模块的接口来读取。
 
+```python
+""" ipython maybe more convenient
+"""
+import pstats
+p = pstats.Stats('prof_test.prof')
+p.strip_dirs().sort_stats('cumtime').print_stats(10, 1.0, '.*')
+# strip_dirs()删除报告中所有函数文件名的路径信息
+# sort_stats(*keys) 对报告列表进行排序，函数会依次按照传入的参数排序
+# print_stats(*restrictions) 把信息打印到标准输出。*restrictions用于控制打印结果的形式，例如（10, 1.0, '.*。py.*'）表示打印所有py文件的信息的前10行结果。
+```
+output:  
+
+![image](https://user-images.githubusercontent.com/52747634/90707812-f3d03080-e2ca-11ea-8920-91c5a9eda6be.png)  
+
+直接看数据表可能不太直观，当数据量很多时也不方便分析，这时候可视化就很香了。
+
+### 分析数据可视化
+文中介绍了4种可视化工具，我选择的是[gprof2dot](https://github.com/jrfonseca/gprof2dot)。  
+```
+sudo yum install python3 graphviz # install grof2dot  
+gprof2dot -f pstats prof_test.prof | dot -Tpng -o prof_test.png
+```
+
+生成图片：  
+<div align=center><img src="https://user-images.githubusercontent.com/52747634/90721864-4a9a3200-e2ec-11ea-8ce7-ae8ce3dc33c4.png" /></div>
+
+#### Output
+接下来的内容摘自[gprof2dot](https://github.com/jrfonseca/gprof2dot) github官方文档。  
+A node in the output graph represents a function and has the following layout:
+```
++------------------------------+  
+|       function name          |  
+| total time % ( self time % ) |  
+|         total calls          |  
++------------------------------+
+```
+where:  
+
+- total time % is the percentage of the running time spent in this function and all its children;
+- self time % is the percentage of the running time spent in this function alone;
+- total calls is the total number of times this function was called (including recursive calls).
+
+An edge represents the calls between two functions and has the following layout:
+```
+
+           total time %
+              calls
+parent --------------------> children
+```
+
+Where:  
+
+- total time % is the percentage of the running time transfered from the children to this parent (if available);
+- calls is the number of calls the parent function called the children.
+
+*Note* that in recursive cycles, the total time % in the node is the same for the whole functions in the cycle, and there is no total time % figure in the edges inside the cycle, since such figure would make no sense.
+
+The color of the nodes and edges varies according to the total time % value. In the default temperature-like color-map, functions where most time is spent (hot-spots) are marked as saturated red, and functions where little time is spent are marked as dark blue. Note that functions where negligible or no time is spent do not appear in the graph by default.
