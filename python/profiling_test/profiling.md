@@ -1,11 +1,11 @@
 ## 说些废话
 似曾相识的巧合，昨天在不同的地方看到三句相似的话：
 > 完美是优秀的敌人 ————《算法图解》
-> We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. – Donald Knuth
+> We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. – Donald Knuth  
 > 第三句我给忘了。 ————啊这。。。
 
 总之，**算法优化**是在写完程序，运行后发现问题比较大的时候突破性能瓶颈用的，好是好，可不要贪杯噢。  
-这篇文算是记录我第一次实战算法优化的记录吧，程序性能分析是软件工程的内容，咱也搞不懂，就按到按到来吧。参考[这篇](https://zhuanlan.zhihu.com/p/24495603)知乎文章。  
+这篇文算是记录我第一次实战算法优化的记录，程序性能分析是软件工程的内容，咱也搞不懂，就按到按到来吧。参考[这篇](https://zhuanlan.zhihu.com/p/24495603)知乎文章。  
 
 ## 关于性能分析
 [wiki](https://zh.wikipedia.org/zh-cn/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90)  
