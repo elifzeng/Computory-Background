@@ -151,7 +151,7 @@ output:
 文中介绍了4种可视化工具，我选择的是[gprof2dot](https://github.com/jrfonseca/gprof2dot)。  
 ```
 sudo yum install python3 graphviz 
-pip install grof2dot # install grof2dot  
+pip install gprof2dot # install grof2dot  
 gprof2dot -f pstats prof_test.prof | dot -Tpng -o prof_test.png
 ```
 
