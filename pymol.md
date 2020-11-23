@@ -39,3 +39,32 @@
     - `ligand interaction`（或者直接右键左下角选择view in 2D sketcher） 
     - draw and `save as new`
     - now a new ligand is genetated and you can dock it as described before.
+
+10.15
+
+1. Basic conception
+
+### Modeling Project Considerations(see photo)
+- Models and Methods
+    - what
+
+- What kind of project 
+### Application area
+ligand docking/ Molecular mechanics continuum solvent/ all-atom MD
+### Some conception
+the **potential energy** changes base on **relative positon** in structure.  
+**potential energy surface**  
+### Component of 
+### Two major components of the ff
+`stretch and angle` & `torsion`  
+### Nonbond terms are determined next
+`van der Waals` & `electrostatic term`  
+LJ equation  
+consider **average polarization** -- methods: enhances charges/ CM1a- BCC  
+E = electrostatic + van der Waals + bond + angle + dihedral(torsion)  
+### selecting a ff
+delta G - thermodynamic potential of the system  
+delta H (enthal)- internal energy of the systerm  
+
+2. Intermolecular interaction
+
