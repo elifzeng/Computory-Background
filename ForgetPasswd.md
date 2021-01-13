@@ -33,8 +33,8 @@ $passwd username
 ## When forget root passwd
 the forgotted password can't be seen since it's encryption（加密的）. So we can only reset it.  
 
-'''bash
+```bash
 sudo passwd root
-'''
+```
 
 That's all!
