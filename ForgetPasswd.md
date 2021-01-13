@@ -30,5 +30,11 @@ This is more easy. You just need to log in as root, open the terminal, enter:
 ```bash
 $passwd username
 ```
+## When forget root passwd
+the forgotted password can't be seen since it's encryption（加密的）. So we can only reset it.  
+
+'''bash
+sudo passwd root
+'''
 
 That's all!
