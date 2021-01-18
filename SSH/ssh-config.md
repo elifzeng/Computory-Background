@@ -37,4 +37,18 @@ The last step can be skipped.
 **solution**: del the dictionary `db40434f562994116e5b21c24015a2e40b2504e6`
 
 #### 2.stucked in Downloading with wget
-**solution**: del the dictionary `db40434f562994116e5b21c24015a2e40b2504e6` and reinstall or scp the dictionary from other place, like host `hn`.
+**solution**: del the dictionary `db40434f562994116e5b21c24015a2e40b2504e6` and reinstall or scp the dictionary from other place, like host `hn`.  
+
+### Just for backup
+```bash
+Host hn
+    User zenglj
+    HostName www.huanglab.org.cn
+
+Host x??? n??? k??? z55 xn xk
+    ProxyCommand ssh -4 -q -W %h:%p hn
+
+# For desktop machine
+Host x021
+    User zenglj
+```
