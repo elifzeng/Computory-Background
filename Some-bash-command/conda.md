@@ -28,3 +28,7 @@ conda install [package] -c conda-forge
 ```bash
 conda search package
 ```
+## Install miniconda
+https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html#install-macos-silent
+## 将一些环境变量和virtual environment绑定在一起
+https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#macos-and-linux
