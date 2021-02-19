@@ -19,6 +19,10 @@ $ conda deactivate
 ```bash
 $ conda remove -n yourenvname -all
 ```
+## List environment you created 
+```bash
+conda env list
+```
 # Install some package or version not in official library with [conda-forge](https://github.com/conda-forge/conda-forge.github.io)
 what's [conda-forge](https://cloud.tencent.com/developer/article/1035806) ?
 ```bash
