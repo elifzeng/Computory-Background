@@ -37,7 +37,7 @@ https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html#ins
 ## 将一些环境变量和virtual environment绑定在一起
 https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#macos-and-linux
 
-## nvironments I usuallly use
+## environments I usuallly use
 ```bash
 #since now htmd only support python <=3.8.0.a1
 conda create -n python python=3.7
@@ -46,7 +46,8 @@ htmd_register
 conda create -n chemtools
 conda activate chemtools
 conda create -n chemtools -c conda-forge rdkit ambertools
-conda install -/home/zenglj/opt/miniconda/envs/chemtools/bin/python /home/zenglj/.vscode-server/extensions/ms-python.python-2021.1.502429796/pythonFiles/pyvsc-run-isolated.py /home/zenglj/.vscode-server/extensions/ms-python.python-2021.1.502429796/pythonFiles/shell_exec.py conda install --name chemtools ipykernel -y /tmp/tmp-7649pNQu3yEeN5vE.log-name chemtools pylint -y
+conda install --name chemtools pylint -y
+/home/zenglj/opt/miniconda/envs/chemtools/bin/python /home/zenglj/.vscode-server/extensions/ms-python.python-2021.1.502429796/pythonFiles/pyvsc-run-isolated.py /home/zenglj/.vscode-server/extensions/ms-python.python-2021.1.502429796/pythonFiles/shell_exec.py conda install --name chemtools ipykernel -y /tmp/tmp-7649pNQu3yEeN5vE.log
 /home/zenglj/opt/miniconda/envs/chemtools/bin/python
 source activate /home/zenglj/opt/miniconda/envs/chemtools
 conda create -n qm
