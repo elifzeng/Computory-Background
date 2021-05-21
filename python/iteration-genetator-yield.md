@@ -58,6 +58,7 @@ i= 3
 i= 4
 do something.
 end.
+"""参数5先传给yield_test-> n=0 -> 调用call(0)返回0，即yield 0，此时j=0（yield 先冻结，将值返回给调用它的for loop,for j in yield_test()） -> 继续运行下一行print("i=", i) -> 下一个循环 n=1 -> ...-> 最后print("do something")
 ```
 ```python
 def yield_test(n):  
