@@ -41,7 +41,7 @@ https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environme
 ```bash
 #since now htmd only support python <=3.8.0.a1
 conda create -n python python=3.7
-conda conda install -c acellera -c conda-forge htmd
+conda install -c acellera -c conda-forge htmd
 htmd_register
 conda create -n chemtools
 conda activate chemtools
