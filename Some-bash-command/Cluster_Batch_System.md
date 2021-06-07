@@ -120,7 +120,7 @@ parallel ProcessFile ::: ${filelist[@]} # ::: is a parallel command symbol and f
 1. 实验室要求储存时最好不要在同一个文件夹下放很多文件，所以我对文件进行了分层储存(方法见[Some-bash-command/reorganise_files.sh](https://github.com/elifzeng/Computory-Background/blob/3591349295b7f09fa86235313a31baaa45f41a4a/Some-bash-command/reorganise_files.sh))，因此需要遍历找到多层文件夹下的所有文件。  
 2. 提交任务后充分跑满32个核，拒绝占着茅坑不拉屎 💩现象。高级说法：使用并行计算  
 **代码思路**  
-用`function TravelDir`实现找到多层文件夹下所有pdb文件  
+用`function TravelDir`实现找到多层文件夹下所有pdb文件。[Bash append to array](https://linuxhint.com/bash_append_array/)  
 用[GNU_parallel](https://www.gnu.org/software/parallel/man.html#EXAMPLE:-Calling-Bash-functions)实现并行，借鉴了[这里](https://www.jianshu.com/p/c5a2369fa613)。  
 先创建一个数组，存下所有文件的绝对路径，然后遍历传递给`function ProcessFile`处理。  
 此处使用了`$1`，使得脚本的普适性更高。一般用法:
