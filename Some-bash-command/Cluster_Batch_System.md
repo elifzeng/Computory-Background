@@ -80,3 +80,51 @@ mv log $k
 mv $k /home/lzeng02/data/extra_1/nmrclust_log/
 done
 ```
+# A Parallel Example
+```bash
+#!/bin/bash
+#$ -q benz
+#$ -pe benz 32  
+#$ -o /pubhome/lzeng/gnu_parallel/log
+#$ -e /pubhome/lzeng/gnu_parallel/log
+source ~/.bashrc # 以后每个脚本都记得要先source & conda activate personal_env
+conda activate py37
+
+filelist=() # create a vacuum list
+function TravelDir(){
+    for file in `ls $1`
+    do
+        if [ -d "$1/$file" ]
+        then
+            TravelDir "$1/$file"
+        else
+            filelist[${#filelist[@]}]="$1/$file" #相当于append
+        fi
+    done
+}
+TravelDir $1
+function ProcessFile(){
+        python /pubhome/lzeng/CPFrags/pdb2FragsPair.py -p $1 -o "/pubhome/lzeng/gnu_parallel/output/"$(printf $1 | cut -d '/' -f 6-) --splitSaveFrags --pairSDF
+}
+
+export -f ProcessFile # remember to add this command
+parallel ProcessFile ::: ${filelist[@]} # ::: is a parallel command symbol and follow parameter you want to transfer
+# parallel echo ::: ${filelist[@]} |parallel  ProcessFile
+
+
+
+#qsub ./run?.sh /tmp/lzeng02/pdb4 
+#notice: do not end with '/', like './run.sh /tmp/lzeng02/pdb4/'
+```
+**应用情景**  
+1. 实验室要求储存时最好不要在同一个文件夹下放很多文件，所以我对文件进行了分层储存(方法见[Some-bash-command/reorganise_files.sh](https://github.com/elifzeng/Computory-Background/blob/3591349295b7f09fa86235313a31baaa45f41a4a/Some-bash-command/reorganise_files.sh))，因此需要遍历找到多层文件夹下的所有文件。  
+2. 提交任务后充分跑满32个核，拒绝占着茅坑不拉屎 💩现象。高级说法：使用并行计算  
+**代码思路**  
+用`function TravelDir`实现找到多层文件夹下所有pdb文件  
+用[GNU_parallel](https://www.gnu.org/software/parallel/man.html#EXAMPLE:-Calling-Bash-functions)实现并行，借鉴了[这里](https://www.jianshu.com/p/c5a2369fa613)。  
+先创建一个数组，存下所有文件的绝对路径，然后遍历传递给`function ProcessFile`处理。  
+此处使用了`$1`，使得脚本的普适性更高。一般用法:
+```bash
+qsub parallel_run.sh //tmp/lzeng02/pdb4
+```
+参数为储存所有文件的大文件夹。
