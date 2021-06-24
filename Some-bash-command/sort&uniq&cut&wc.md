@@ -1,5 +1,6 @@
 # 排序与去冗余
 https://blog.csdn.net/u013071953/article/details/64951351  
+https://www.cnblogs.com/f-ck-need-u/p/7442886.html (这一篇的sort更好)  
 `sort`命令对 File 参数指定的文件中的行排序，并将结果写到标准输出。如果 File 参数指定多个文件，那么 sort 命令将这些文件连接起来，并当作一个文件进行排序。
 
 ## sort
