@@ -103,9 +103,15 @@ function TravelDir(){
     done
 }
 TravelDir $1
+
 function ProcessFile(){
         python /pubhome/lzeng/CPFrags/pdb2FragsPair.py -p $1 -o "/pubhome/lzeng/gnu_parallel/output/"$(printf $1 | cut -d '/' -f 6-) --splitSaveFrags --pairSDF
 }
+
+# for f in ${filelist[@]}
+# do
+#     echo $f
+# done
 
 export -f ProcessFile # remember to add this command
 parallel ProcessFile ::: ${filelist[@]} # ::: is a parallel command symbol and follow parameter you want to transfer
@@ -121,6 +127,7 @@ parallel ProcessFile ::: ${filelist[@]} # ::: is a parallel command symbol and f
 2. 提交任务后充分跑满32个核，拒绝占着茅坑不拉屎 💩现象。高级说法：使用并行计算  
 **代码思路**  
 用`function TravelDir`实现找到多层文件夹下所有pdb文件。[Bash append to array](https://linuxhint.com/bash_append_array/)  
+中间遍历了一下列表，检查列表元素正确  
 用[GNU_parallel](https://www.gnu.org/software/parallel/man.html#EXAMPLE:-Calling-Bash-functions)实现并行，借鉴了[这里](https://www.jianshu.com/p/c5a2369fa613)。  
 先创建一个数组，存下所有文件的绝对路径，然后遍历传递给`function ProcessFile`处理。  
 此处使用了`$1`，使得脚本的普适性更高。一般用法:
