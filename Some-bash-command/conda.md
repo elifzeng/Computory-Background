@@ -43,6 +43,7 @@ https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environme
 conda create -n python python=3.7
 conda install -c acellera -c conda-forge htmd
 htmd_register
+conda install -c conda-forge ase -y
 conda create -n chemtools
 conda activate chemtools
 conda create -n chemtools -c conda-forge rdkit ambertools
