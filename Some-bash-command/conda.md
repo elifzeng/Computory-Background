@@ -1,7 +1,7 @@
 # Create a virtual environment for your project
 [see more](https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/20/conda/)
 ```bash
-$ conda create -n yourenvname python=X.Y.Z anoconda
+$ conda create -n yourenvname python=X.Y.Z anaconda
 ```
 and activate the environment
 ```bash
