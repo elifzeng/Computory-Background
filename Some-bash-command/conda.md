@@ -56,6 +56,10 @@ conda install --name qm pylint -y
 # the context of the two .sh file is shown below
 cat /home/zenglj/opt/miniconda/envs/qm/etc/conda/activate.d/env_vars.sh
 cat /home/zenglj/opt/miniconda/envs/qm/etc/conda/deactivate.d/env_vars.sh
+conda create -n deepchem python=3.7 anaconda
+conda activate deepchem
+conda install -c rdkit rdkit
+
 ```
 and the `.bashrc`  
 ```bash
