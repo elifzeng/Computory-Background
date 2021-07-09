@@ -25,7 +25,7 @@ and check the output or error by `cat log/*o613355` and `cat log/*e613355`.The t
 if there is something wrong, the state `Eqw` can be seen:  
 
 ![image](https://user-images.githubusercontent.com/52747634/71582541-a89fbc80-2b45-11ea-91f2-899d36ca120c.png)  
-and you can track its state by jobID `qstat -j jobID`.And Delete this job by `qdel jobID`
+and you can track its state and error by jobID `qstat -j jobID`. Track all users' job array by `qstat -u \*`. And Delete this job by `qdel jobID`
 
 ## Example2
 This is a job script named *qsub-test*. You can see more commmands pf `qsub` by `man qsub`.
@@ -80,3 +80,58 @@ mv log $k
 mv $k /home/lzeng02/data/extra_1/nmrclust_log/
 done
 ```
+# A Parallel Example
+```bash
+#!/bin/bash
+#$ -q benz
+#$ -pe benz 32  
+#$ -o /pubhome/lzeng/gnu_parallel/log
+#$ -e /pubhome/lzeng/gnu_parallel/log
+source ~/.bashrc # 以后每个脚本都记得要先source & conda activate personal_env
+conda activate py37
+
+filelist=() # create a vacuum list
+function TravelDir(){
+    for file in `ls $1`
+    do
+        if [ -d "$1/$file" ]
+        then
+            TravelDir "$1/$file"
+        else
+            filelist[${#filelist[@]}]="$1/$file" #相当于append
+        fi
+    done
+}
+TravelDir $1
+
+function ProcessFile(){
+        python /pubhome/lzeng/CPFrags/pdb2FragsPair.py -p $1 -o "/pubhome/lzeng/gnu_parallel/output/"$(printf $1 | cut -d '/' -f 6-) --splitSaveFrags --pairSDF
+}
+
+# for f in ${filelist[@]}
+# do
+#     echo $f
+# done
+
+export -f ProcessFile # remember to add this command
+parallel ProcessFile ::: ${filelist[@]} # ::: is a parallel command symbol and follow parameter you want to transfer
+# parallel echo ::: ${filelist[@]} |parallel  ProcessFile
+
+
+
+#qsub ./run?.sh /tmp/lzeng02/pdb4 
+#notice: do not end with '/', like './run.sh /tmp/lzeng02/pdb4/'
+```
+**应用情景**  
+1. 实验室要求储存时最好不要在同一个文件夹下放很多文件，所以我对文件进行了分层储存(方法见[Some-bash-command/reorganise_files.sh](https://github.com/elifzeng/Computory-Background/blob/3591349295b7f09fa86235313a31baaa45f41a4a/Some-bash-command/reorganise_files.sh))，因此需要遍历找到多层文件夹下的所有文件。  
+2. 提交任务后充分跑满32个核，拒绝占着茅坑不拉屎 💩现象。高级说法：使用并行计算  
+**代码思路**  
+用`function TravelDir`实现找到多层文件夹下所有pdb文件。[Bash append to array](https://linuxhint.com/bash_append_array/)  
+中间遍历了一下列表，检查列表元素正确  
+用[GNU_parallel](https://www.gnu.org/software/parallel/man.html#EXAMPLE:-Calling-Bash-functions)实现并行，借鉴了[这里](https://www.jianshu.com/p/c5a2369fa613)。  
+先创建一个数组，存下所有文件的绝对路径，然后遍历传递给`function ProcessFile`处理。  
+此处使用了`$1`，使得脚本的普适性更高。一般用法:
+```bash
+qsub parallel_run.sh //tmp/lzeng02/pdb4
+```
+参数为储存所有文件的大文件夹。

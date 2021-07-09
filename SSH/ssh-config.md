@@ -38,7 +38,7 @@ The last step can be skipped.
 
 #### 2.stucked in Downloading with wget
 **solution**: del the dictionary `db40434f562994116e5b21c24015a2e40b2504e6` and reinstall or scp the dictionary from other place, like host `hn`.  
-
+_Most errors can be solved by this method_
 ### Just for backup
 ```bash
 Host hn

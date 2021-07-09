@@ -1,7 +1,7 @@
 # Create a virtual environment for your project
 [see more](https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/20/conda/)
 ```bash
-$ conda create -n yourenvname python=X.Y.Z anoconda
+$ conda create -n yourenvname python=X.Y.Z anaconda
 ```
 and activate the environment
 ```bash
@@ -41,8 +41,9 @@ https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environme
 ```bash
 #since now htmd only support python <=3.8.0.a1
 conda create -n python python=3.7
-conda conda install -c acellera -c conda-forge htmd
+conda install -c acellera -c conda-forge htmd
 htmd_register
+conda install -c conda-forge ase -y
 conda create -n chemtools
 conda activate chemtools
 conda create -n chemtools -c conda-forge rdkit ambertools
@@ -55,6 +56,10 @@ conda install --name qm pylint -y
 # the context of the two .sh file is shown below
 cat /home/zenglj/opt/miniconda/envs/qm/etc/conda/activate.d/env_vars.sh
 cat /home/zenglj/opt/miniconda/envs/qm/etc/conda/deactivate.d/env_vars.sh
+conda create -n deepchem python=3.7 anaconda
+conda activate deepchem
+conda install -c rdkit rdkit
+
 ```
 and the `.bashrc`  
 ```bash
