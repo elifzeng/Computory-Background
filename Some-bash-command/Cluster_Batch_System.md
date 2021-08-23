@@ -36,6 +36,7 @@ This is a job script named *qsub-test*. You can see more commmands pf `qsub` by 
 #$ -l hostname=n125.hn.org  # 若要指定不使用哪台主机，则为-l hostname=！n125.hn.org 
 #$ -t 100-125 # <FIRST>-<LAST>:<STEPSIZE> 用于提交 只该改变参数的重复任务
 #$ -o /home/lzeng02/qsub-test/log/ # output 
+#$ -wd /home/lzeng02/ # work directory
 
 ##$ -e /home/lzeng02/qsub-test/log/ # 标准错误输出路径
 #$ -j y # -j y[es]|n[o] Specifies whether or not the standard error stream of the job is merged into the standard output stream.
