@@ -81,7 +81,7 @@ mv log $k
 mv $k /home/lzeng02/data/extra_1/nmrclust_log/
 done
 ```
-# A Parallel Example
+# Parallel Example 1
 ```bash
 #!/bin/bash
 #$ -q benz
@@ -136,3 +136,72 @@ parallel ProcessFile ::: ${filelist[@]} # ::: is a parallel command symbol and f
 qsub parallel_run.sh //tmp/lzeng02/pdb4
 ```
 参数为储存所有文件的大文件夹。
+
+# Parallel Example 2
+```bash
+#!/bin/bash
+##$ -N qmcal_n
+#$ -q mazda
+#$ -pe mazda 32
+#$ -o /pubhome/lzeng/data/error
+#$ -e /pubhome/lzeng/data/error
+#$ -wd /pubhome/lzeng/CPFrags/run_orca/cal_energy
+
+source ~/.bashrc
+conda activate py37
+
+#qsub -N qmcal_n calc_energy.sh /pubhome/lzeng/data/extra_25/pdb0 no "/" in the end
+# using/pubhome/lzeng/data/extra_25/pdb0 to run example
+
+# get input file and output path
+filelist=()
+outputlist=()
+function TravelDir(){
+    for file in `ls $1`
+    do
+        if [ -d "$1/$file" ]
+        then
+            echo $1/$file
+            TravelDir "$1/$file"
+        else
+            filebase=$( basename $file )
+            # echo $file
+            # echo $1
+            if [[ $filebase = pdb*.ent.*.sdf ]] # do not add "" to wildcard character（通配符）
+            then
+                filelist[${#filelist[@]}]="$1/$file"
+                m=$( echo $filebase | cut -d "." -f 1 )
+                n=$( echo $filebase | cut -d "." -f 3-4 )
+                i=$( echo $1/$file | cut -d "/" -f 6-7 )
+                outputlist[${#outputlist[@]}]="/pubhome/lzeng/data/QM_energy/$i/$m.$n.json.gz"
+            elif [[ $filebase = pdb????.ent.sdf ]]
+            then
+                echo 
+            elif [[ $filebase = pdb????.*.sdf ]]
+            then
+                filelist[${#filelist[@]}]="$1/$file"
+                a=$( echo $1/$file | cut -d "/" -f 6-)
+                outputlist[${#outputlist[@]}]="/pubhome/lzeng/data/QM_energy/$a.jzon.gz"
+            fi
+        fi
+    done
+}
+TravelDir $1
+
+# for q in ${outputlist[@]}
+# do
+#     echo aaaaa
+#     echo $q
+# done
+
+# run sdf2qm.py parallelly
+function CalculateEng(){
+    echo Processing $1
+    python /pubhome/lzeng/CPFrags/run_orca/cal_energy/sdf2qm.py $1 -o $2
+    echo Results are saved 'in' $2
+}
+
+export -f CalculateEng
+parallel --link CalculateEng ::: ${filelist[@]} ::: ${outputlist[@]} # 传两个参数（no combination）
+```
+
