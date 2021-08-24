@@ -201,7 +201,8 @@ function CalculateEng(){
     echo Results are saved 'in' $2
 }
 
-export -f CalculateEng
+export -f Calc90ulateEng
 parallel --link CalculateEng ::: ${filelist[@]} ::: ${outputlist[@]} # 传两个参数（no combination）
 ```
+传参参考了[这里](https://blog.csdn.net/weixin_29602351/article/details/116863908)
 
