@@ -12,7 +12,7 @@ do
     for f  in  /home/lzeng02/data/pdb25/"pdb$i"/pdb*ent*
     do
         name=$(basename $f)
-        num=${name:3:2}
+        num=${name:3:2} # 字符串切片，从第4个字符开始切，切片长度为2
         mv  $f /home/lzeng02/data/pdb25/"pdb$i"/"$num"/
     done
 done
