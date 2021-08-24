@@ -75,6 +75,49 @@ f = open(fp,'w')
 f.write(js)
 f.close()
 ```
+json.dumps()中有几个重要参数：
+```python
+import json
+f = gzip.GzipFile(filename, 'r') # create a file object
+f.write(json.dumps(data, indent = 2, sort_keys = True, cls = NumpyEncoder))
+```
+官方文档：
+>(function) dumps: (obj: Any, *, skipkeys: bool = ..., ensure_ascii: bool = ..., check_circular: bool = ..., allow_nan: bool = ..., cls: Type[JSONEncoder] | None = ..., indent: int | str | None = ..., separators: Tuple[str, str] | None = ..., default: (_p0: Any) -> Any | None = ..., sort_keys: bool = ..., **kwds: Any) -> str
+>If indent is a non-negative integer, then JSON array elements and object members will be pretty-printed with that indent level. An indent level of 0 will only insert newlines. None is the most compact representation.
+>If *sort_keys* is true (default: False), then the output of dictionaries will be sorted by key.
+>No explanation for cls
+
+即`indent`为缩进空格数，`sort_key`为每个key排序依据，2为按开头字母顺序排序。`cls`是可以自定义的encode转换方式，比如将python中的dict转换为json对象。默认的encoder（json.JSONEncoder） 只对部分进行了转化:
+```txt
+"""Extensible JSON <http://json.org> encoder for Python data structures.
+
+    Supports the following objects and types by default:
+
+    +-------------------+---------------+
+    | Python            | JSON          |
+    +===================+===============+
+    | dict              | object        |
+    +-------------------+---------------+
+    | list, tuple       | array         |
+    +-------------------+---------------+
+    | str               | string        |
+    +-------------------+---------------+
+    | int, float        | number        |
+    +-------------------+---------------+
+    | True              | true          |
+    +-------------------+---------------+
+    | False             | false         |
+    +-------------------+---------------+
+    | None              | null          |
+    +-------------------+---------------+
+
+    To extend this to recognize other objects, subclass and implement a
+    ``.default()`` method with another method that returns a serializable
+    object for ``o`` if possible, otherwise it should call the superclass
+    implementation (to raise ``TypeError``).
+```
+而代码中的[NumpyEncoder](https://pypi.org/project/numpyencoder/)是自定义的另一种转换方式。  
+[more details](https://www.cnblogs.com/yxi-liu/p/9579770.html)  
 
 # Hierarchical Data Format (HDF5)
 [HDF in wiki](https://en.wikipedia.org/wiki/Hierarchical_Data_Format)
