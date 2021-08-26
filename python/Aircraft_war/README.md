@@ -1,0 +1,1 @@
+相关注释和知识拓展在[issue #13](https://github.com/elifzeng/Computory-Background/issues/13)下。
