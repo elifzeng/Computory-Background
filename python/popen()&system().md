@@ -4,7 +4,27 @@ python调用shell有两种方法：`os.system()`或`os.popen()`，前者返回�
 popen更加强大。
 #### os.system(cmd):
 该方法在调用完shell脚本后，返回一个16位的二进制数，低位为杀死所调用脚本的信号号码，高位为脚本的退出状态码，即脚本中“exit 1”的代码执行后，os.system函数返回值的
-高位数则是1，如果低位数是0的情况下，则函数的返回值是0×100,换算为10进制得到256。
+高位数则是1，如果低位数是0的情况下，则函数的返回值是0×100,换算为10进制得到256。  
+
+**[关于返回值](https://blog.csdn.net/CrazyUncle/article/details/84565966)**  
+>os.system()返回值为0                      linux命令返回值也为0.
+
+>os.system()返回值为256，十六位二进制数示为：00000001，00000000，高八位转乘十进制为 1           对应   linux命令返回值 1
+
+>os.system()返回值为512，十六位二进制数示为：00000010，00000000，高八位转乘十进制为 2           对应   linux命令返回值 2
+
+>os.system()返回值为32512，十六位二进制数示为：01111111，00000000，高八位转乘十进制为 127          对应   linux命令返回值 127
+
+对应的linux返回i值：  
+```txt
+# 0 为正常返回
+"OS error code 1: Operation not permitted" # grep 结果为空
+"OS error code 2: No such file or directory"
+"OS error code 127: Key has expired"
+```
+
+
+
 
 #### os.popen(cmd):
 这种调用方式是通过管道的方式来实现，函数返回一个file-like的对象(所以可以用read()来读取)，里面的内容是脚本输出的内容（可简单理解为echo输出的内容）。  
