@@ -120,7 +120,11 @@ git clone [repository address] # 将别人的库克隆到本地
 2. 创建origin远程地址别名
 3. 初始化本地库（`.git`文件）
 添加成员：`log in github -> the repository you want to operate -> setting -> Manage access -> invite a collaborator -> Copy invite link -> send to the man you want to invite -> verify`  
-
+#### 只克隆远程库的一个分支
+```bash
+git clone -b elifzeng/issue28 git@github.com:hnlab/CPFrags.git
+```
+注意，branch名称前面没有`origin/`.
 #### 拉取
 作为管理员，要将其他成员push到远程库的东西pull下来，而`pull`这一步包含了`fetch`&`merge`两个步骤。有时`pull`这个步骤会分为后两个步骤执行，这样可以在fetch到本地后先确认好文件内容，再与本地文件merge,比较保险。 
 ```bash
