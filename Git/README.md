@@ -17,7 +17,14 @@ $ git help [cmd] # 查看帮助文档
 ```
 
 # 基本概念
-Git包括：【工作区】—git add—【暂存区】—git commit—【本地库】
+Git包括：【工作区】—git add—【暂存区】—git commit—【本地库】  
+Git 代码状态包括： 
+- 未被Git跟踪的状态为unstage状态
+- 已被Git跟踪的状态为stage状态（stage：阶段），因此包括staging状态和staged状态
+    - untrack files:指尚未被git所管理的文件; changed but not updated：是指文件被git管理，并且发生了改变，但改动还没被git管理；这两种状态，都可以看成是改动还没被git管理的状态，我们这里称unstage状态。
+    - staging是commit和未管理之间的一个状态，也有别名叫index状态，也就是git已经管理了这些改动，但是还没完成提交。changes to be commited是指进入staged状态的文件。
+    - .gitignore中的文件，不会出现在以上三个状态中
+- 综上，add就是被Git跟踪了，commit就是本Git管理了。代码一旦修改，就会成为未被git库跟踪的状态。需要add、commit。
 # Git 命令行操作
 `Git`专属命令一般都为`git [options]`形式。
 ## 本地库初始化
@@ -120,7 +127,8 @@ git clone [repository address] # 将别人的库克隆到本地
 2. 创建origin远程地址别名
 3. 初始化本地库（`.git`文件）
 添加成员：`log in github -> the repository you want to operate -> setting -> Manage access -> invite a collaborator -> Copy invite link -> send to the man you want to invite -> verify`  
-#### 只克隆远程库的一个分支
+#### 只克隆远程库的一个分支（本地什么都没有）
+已有本地分支的情况见后  
 ```bash
 git clone -b elifzeng/issue28 git@github.com:hnlab/CPFrags.git
 ```
@@ -150,3 +158,124 @@ ssh-keygen -t rsa -C [mail@ddress]
 ```
 将其中生成的公钥内容复制到GitHub上本教程页首截图所示页面上。
 3. 在本地通过`git remote add [alias] [ssh-address]`将远程库添加到本地。
+
+## 进阶操作
+### 在本地已有分支的基础上克隆远程分支
+如果此时本地分支还有修改未commit，但又因为bug没改完等原因不想commit，可以先stash缓存，之后再回来继续修改。  
+```bash 
+git stash
+```
+然后就可以拉取远程分支了
+```bash
+# 查看远程分支
+git branch -r
+# 查看本地分支
+git branch
+# 在本地建立对应远程分支的本地分支，此时会自动跳转到新分支
+# 比如 git checkout -b elifzeng/issue22 origin/elifzeng/issue22
+# 注意，只有远程分支名是origin/xxx
+git checkout -b 本地分支名 origin/远程分支名
+# 拉取远程分支
+git pull origin 远程分支名
+# 遇到本地冲突，先删除本地分支，再重新拉取远程分支
+git branch -D 本地分支名
+```
+### 将本地分支推送到远程分支上
+```bash
+git branch --set-upstream-to origin/远程分支名 本地分支名
+```
+### stash 缓存修改
+ref: [git-stash用法小结](https://www.cnblogs.com/tocy/p/git-stash-reference.html)  
+`git stash`（git储藏）可用于以下情形：
+- 发现有一个类是多余的，想删掉它又担心以后需要查看它的代码，想保存它但又不想增加一个脏的提交。这时就可以考虑`git stash`。
+- 使用git的时候，我们往往使用分支（branch）解决任务切换问题，例如，我们往往会建一个自己的分支去修改和调试代码, 如果别人或者自己发现原有的分支上有个不得不修改的bug，我们往往会把完成一半的代码`commit`交到本地仓库，然后切换分支去修改bug，改好之后再切换回来。这样的话往往log上会有大量不必要的记录。其实如果我们不想提交完成一半或者不完善的代码，但是却不得不去修改一个紧急Bug，那么使用git stash就可以将你当前未提交到本地（和服务器）的代码推入到Git的栈中，这时候你的工作区间和上一次提交的内容是完全一样的，所以你可以放心的修Bug，等到修完Bug，提交到服务器上后，再使用`git stash apply`将以前一半的工作应用回来。
+- 经常有这样的事情发生，当你正在进行项目中某一部分的工作，里面的东西处于一个比较杂乱的状态，而你想转到其他分支上进行一些工作。问题是，你不想提交进行了一半的工作，否则以后你无法回到这个工作点。解决这个问题的办法就是`git stash`命令。储藏(stash)可以获取你工作目录的中间状态——也就是你修改过的被追踪的文件和暂存的变更——并将它保存到一个未完结变更的堆栈中，随时可以重新应用。  
+
+`git stash`用法：  
+**1. stash 当前修改**  
+默认情况下，`git stash`会缓存下列文件：
+- 添加到暂存区的修改（staged changes）
+- Git跟踪的但并未添加到暂存区的修改（unstaged changes）
+
+但不会缓存以下文件：
+- 在工作目录中新的文件（untracked files）
+- 被忽略的文件（ignored files）
+`git stash`命令提供了参数用于缓存上面两种类型的文件。使用`-u`或者`--include-untracked`可以stash untracked文件。使用-a或者--all命令可以stash当前目录下的所有修改。
+`git stash`会把所有未提交的修改（包括暂存的和非暂存的）都保存起来，用于后续恢复当前工作目录。  
+比如下面的中间状态，通过git stash命令推送一个新的储藏，当前的工作目录就干净了。
+```bash
+$ git status
+On branch master
+Changes to be committed:
+
+new file:   style.css
+
+Changes not staged for commit:
+
+modified:   index.html
+
+$ git stash
+Saved working directory and index state WIP on master: 5002d47 our new homepage
+HEAD is now at 5002d47 our new homepage
+
+$ git status
+On branch master
+nothing to commit, working tree clean
+```
+需要说明一点，stash是本地的，不会通过`git push`命令上传到git server上。
+实际应用中推荐给每个stash加一个message，用于记录版本，使用`git stash save`取代`git stash`命令。示例如下：
+```bash
+$ git stash save "test-cmd-stash"
+Saved working directory and index state On autoswitch: test-cmd-stash
+HEAD 现在位于 296e8d4 remove unnecessary postion reset in onResume function
+$ git stash list
+stash@{0}: On autoswitch: test-cmd-stash
+```
+**2. 重新应用缓存的stash**  
+使用`stash pop` 或`stash apply`：
+```bash
+ git status
+On branch master
+nothing to commit, working tree clean
+# git stash pop 将缓存堆栈中的第一个stash删除，并将对应修改应用到当前的工作目录下。
+$ git stash pop
+On branch master
+Changes to be committed:
+
+    new file:   style.css
+
+Changes not staged for commit:
+
+    modified:   index.html
+
+Dropped refs/stash@{0} (32b3aa1d185dfe6d57b3c3cc3b32cbf3e380cc6a)
+# git stash apply 将缓存堆栈中的stash多次应用到工作目录中，但并不删除stash拷贝。
+# 在使用git stash apply命令时可以通过名字指定使用哪个stash，默认使用最近的stash（即stash@{0}）。
+$ git stash apply
+On branch master
+Changes to be committed:
+
+    new file:   style.css
+
+Changes not staged for commit:
+
+    modified:   index.html
+```
+**3. 查看现有stash**  
+```bash
+$ git stash list
+stash@{0}: WIP on master: 049d078 added the index file
+stash@{1}: WIP on master: c264051 Revert "added file_size"
+stash@{2}: WIP on master: 21d80a5 added number to log
+```
+**4. remove existing stash**   
+```bash
+$ git stash list
+stash@{0}: WIP on master: 049d078 added the index file
+stash@{1}: WIP on master: c264051 Revert "added file_size"
+stash@{2}: WIP on master: 21d80a5 added number to log
+$ git stash drop stash@{0}
+Dropped stash@{0} (364e91f3f268f0900bc3ee613f9f733e82aaed43)
+```
+查看指定stash的diff、从stash创建分支见ref: [git-stash用法小结](https://www.cnblogs.com/tocy/p/git-stash-reference.html)  
+
