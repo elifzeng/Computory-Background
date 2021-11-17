@@ -56,6 +56,8 @@ done
 ```bash
 sed -n '/test/,/check/p' file
 sed -n '/MODEL        17$/,/ENDMDL/p' PRPA_PRPA.origin.pdb > a # 17后加$表示以17结尾
+sed -n '2p' aa.txt # 打印aa.txt的第二行
+sed -n '23,34p' aa.txt >>bb.txt # 打印aa.txt的23～34行并输出到bb.txt中
 ```
 # Cut
 `cut`命令从文件的每一行剪切字节、字符和字段并将这些字节、字符和字段写至标准输出。  
