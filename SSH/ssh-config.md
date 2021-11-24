@@ -40,7 +40,7 @@ The last step can be skipped.
 **solution**: del the dictionary `db40434f562994116e5b21c24015a2e40b2504e6` and reinstall or scp the dictionary from other place, like host `hn`.  
 _Most errors can be solved by this method_  
 **second method**
-get the commit id like `2d23c42a936db1c7b3b06f918cde29561cc47cd6`, and mannually run `wget https://az764295.vo.msecnd.net/stable/2d23c42a936db1c7b3b06f918cde29561cc47cd6/vscode-server-linux-x64.tar.gz` on local device. Then scp the `vscode-server-linux-x64.tar.gz` to `k**:/pubhome/lzeng/.vscode-server/bin/2d23c42a936db1c7b3b06f918cde29561cc47cd6/`
+get the commit id like `2d23c42a936db1c7b3b06f918cde29561cc47cd6`, and mannually run `https://vscode.cdn.azure.cn/stable/ccbaa2d27e38e5afa3e5c21c1c7bef4657064247/vscode-server-linux-x64.tar.gz` on local device. Then scp the `vscode-server-linux-x64.tar.gz` to `k**:/pubhome/lzeng/.vscode-server/bin/ccbaa2d27e38e5afa3e5c21c1c7bef4657064247/`
 ### Just for backup
 ```bash
 Host hn
