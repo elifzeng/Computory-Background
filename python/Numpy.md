@@ -61,4 +61,11 @@ array([0, 1, 1])
 >>> np.average(data)
 1.6666666666666667
 ```
-通过不同的axis，numpy会沿着不同的方向进行操作：如果不设置，那么对所有的元素操作；如果axis=0，则沿着纵轴进行操作；axis=1，则沿着横轴进行操作。但这只是简单的二位数组，如果是多维的呢？可以总结为一句话：设axis=i，则numpy沿着第i个下标变化的放下进行操作。例如刚刚的例子，可以将表示为：data =[[a00, a01],[a10,a11]]，所以axis=0时，沿着第0个下标变化的方向进行操作，也就是a00->a10, a01->a11，也就是纵坐标的方向，axis=1时也类似。
+通过不同的axis，numpy会沿着不同的方向进行操作：如果不设置，那么对所有的元素操作；如果axis=0，则沿着纵轴进行操作；axis=1，则沿着横轴进行操作。但这只是简单的二位数组，如果是多维的呢？可以总结为一句话：设axis=i，则numpy沿着第i个下标变化的放下进行操作。例如刚刚的例子，可以将表示为：data =[[a00, a01],[a10,a11]]，所以axis=0时，沿着第0个下标变化的方向进行操作，也就是a00->a10, a01->a11，也就是纵坐标的方向，axis=1时也类似。  
+
+## Numpy.transpose()
+[python中的Numpy.transpose()](https://zhuanlan.zhihu.com/p/154203624#:~:text=np.transpose,%281%2C0%2C2%29%E8%A1%A8%E7%A4%BA%E5%B0%860%E8%BD%B4%E5%92%8C1%E8%BD%B4%E7%BD%AE%E6%8D%A2%E3%80%82%20%E5%9C%A8%E5%9B%BE%E4%B8%AD%E5%8D%B3%E8%A1%A8%E7%A4%BA%E7%BA%A2%E8%89%B2%E8%BF%99%E4%B8%80%E5%88%97%E4%B8%8E%E7%BB%BF%E8%89%B2%E8%BF%99%E4%B8%80%E5%88%97%E4%BA%92%E6%8D%A2%EF%BC%8C%E5%85%B6%E4%BB%96%E4%BD%8D%E7%BD%AE%E4%B8%8D%E5%8F%98%EF%BC%8C%E5%9B%A0%E7%BD%AE%E6%8D%A2%E5%AF%BC%E8%87%B4%E7%B4%A2%E5%BC%95%E9%A1%BA%E5%BA%8F%E5%8F%98%E5%8C%96%EF%BC%8C%E5%8E%9F%E6%9D%A5%E7%9A%841%E8%BD%B4%E5%8F%98%E6%88%90%E6%96%B0%E7%9A%840%E8%BD%B4%EF%BC%8C%E5%8E%9F%E6%9D%A5%E7%9A%840%E8%BD%B4%E5%8F%98%E6%88%90%E6%96%B0%E7%9A%841%E8%BD%B4%EF%BC%8C%E9%87%8D%E6%96%B0%E6%8C%89%E6%96%B0%E7%9A%84%EF%BC%880-1-2%EF%BC%89%E8%BD%B4%E6%8E%92%E5%BA%8F%EF%BC%8C%E5%8D%B3%E5%8F%AF%E5%BE%97%E5%88%B0%E6%9C%80%E7%BB%88%E7%BB%93%E6%9E%9C%E3%80%82)  
+```python
+coord.transpose()
+```
+当transpose()不传任何参数时，作用与T属性类似，arr.T即可完成数组arr的转置.transpose()接受的是含所有轴编号的元组，例如三维数组的np.transpose(1,0,3)，即表示将0轴和1轴置换。其他可参见参考文章链接。
