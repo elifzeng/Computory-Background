@@ -45,3 +45,20 @@ M[row_index,:][:,col_index]
 mask = (M >= 20) & (M <= 90) & ((M / 10) % 1 >= 0.5)
 M[mask]
 ```
+## axis
+[ref](https://blog.csdn.net/fangjian1204/article/details/53055219)
+```python
+>>> import numpy as np
+>>> data = np.array([
+... [1,2,1],
+... [0,3,1],
+... [2,1,4],
+... [1,3,1]])
+>>> np.sum(data, axis=1)
+array([4, 4, 7, 5])
+>>> np.min(data, axis=0)
+array([0, 1, 1])
+>>> np.average(data)
+1.6666666666666667
+```
+通过不同的axis，numpy会沿着不同的方向进行操作：如果不设置，那么对所有的元素操作；如果axis=0，则沿着纵轴进行操作；axis=1，则沿着横轴进行操作。但这只是简单的二位数组，如果是多维的呢？可以总结为一句话：设axis=i，则numpy沿着第i个下标变化的放下进行操作。例如刚刚的例子，可以将表示为：data =[[a00, a01],[a10,a11]]，所以axis=0时，沿着第0个下标变化的方向进行操作，也就是a00->a10, a01->a11，也就是纵坐标的方向，axis=1时也类似。
