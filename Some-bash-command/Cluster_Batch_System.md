@@ -62,6 +62,16 @@ done
 
 echo -e  "\n\nCompleted."
 ```
+## Disk quota exceeded
+先查看磁盘使用情况
+```bash
+$ lfs quota -hu lzeng /pubhome/
+Disk quotas for usr lzeng (uid 5056):
+     Filesystem    used   quota   limit   grace   files   quota   limit   grace
+      /pubhome/  1.667T      0k      0k       - 3500000* 3000000 3500000       -
+uid 5056 is using default block quota setting
+```
+上面可以看到，是文件数超额里，接下来怎么解决自己想办法吧。。。
 # A Instance Example
 
 ```bash
@@ -208,4 +218,5 @@ export -f Calc90ulateEng
 parallel --link CalculateEng ::: ${filelist[@]} ::: ${outputlist[@]} # 传两个参数（no combination）
 ```
 传参参考了[这里](https://blog.csdn.net/weixin_29602351/article/details/116863908)
+# Disk quota exceeded
 
