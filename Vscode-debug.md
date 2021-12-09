@@ -18,3 +18,6 @@ click sidebar to set breakpoint
 2nd icon: **Step over**, run to next line  
 3rd icon: **Step into**, run into the called function  
 4th icon: **Step out**, run out from the called function
+
+## More
+If you want to also debug the libraries, setting the `justMyCode:` in `lauch.json` to `false`. 
