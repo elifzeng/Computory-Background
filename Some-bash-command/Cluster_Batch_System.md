@@ -220,3 +220,17 @@ parallel --link CalculateEng ::: ${filelist[@]} ::: ${outputlist[@]} # 传两个
 传参参考了[这里](https://blog.csdn.net/weixin_29602351/article/details/116863908)
 # Disk quota exceeded
 
+# GPU task commitment
+命令不懂的可以搜索`man qsub`。
+```bash
+#!/usr/bin/env bash
+#$ -q cuda 
+#$ -l ngpus=1
+#$ -cwd # current work directory
+#$ -o /pubhome/lzeng/data/log/
+#$ -e /pubhome/lzeng/data/log/
+#$ -N zinctest
+source /usr/bin/startcuda.sh
+MY COMMAND
+source /usr/bin/end_cuda.sh
+```
