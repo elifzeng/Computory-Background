@@ -234,3 +234,17 @@ source /usr/bin/startcuda.sh
 MY COMMAND
 source /usr/bin/end_cuda.sh
 ```
+# GPU/CPU sleep
+先占领几个core，然后再在上面运行测试程序
+```bash
+#!/bin/bash
+#$ -q ampere
+#$ -pe ampere 18
+#$ -cwd
+#$ -o /dev/null
+#$ -e /dev/null
+#$ -N graphormer
+source /usr/bin/startcuda.sh
+sleep 7d
+source /usr/bin/end_cuda.sh
+```
