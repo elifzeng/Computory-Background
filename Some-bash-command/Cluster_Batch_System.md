@@ -27,7 +27,7 @@ if there is something wrong, the state `Eqw` can be seen:
 ![image](https://user-images.githubusercontent.com/52747634/71582541-a89fbc80-2b45-11ea-91f2-899d36ca120c.png)  
 and you can track its state and error by jobID `qstat -j jobID`. Track all users' job array by `qstat -u \*`. And Delete this job by `qdel jobID`.Or delete all Eqw jobs at once by 
 ```bash
-qstat | grep Eqw| cut -b 7|xargs qdel
+qstat | grep Eqw| cut -b 1-7|xargs qdel
 ```
 
 ## Example2
