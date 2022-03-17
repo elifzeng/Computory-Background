@@ -119,6 +119,63 @@ f.write(json.dumps(data, indent = 2, sort_keys = True, cls = NumpyEncoder))
 而代码中的[NumpyEncoder](https://pypi.org/project/numpyencoder/)是自定义的另一种转换方式。  
 [more details](https://www.cnblogs.com/yxi-liu/p/9579770.html)  
 
+### read and load .json 
+[python中json文件处理涉及的四个函数json.dumps()和json.loads()、json.dump()和json.load()的区分](https://www.cnblogs.com/xiaomingzaixian/p/7286793.html)
+
+```python 
+# dumps
+import json
+
+# json.dumps()函数的使用，将字典转化为字符串
+dict1 = {"age": "12"}
+json_info = json.dumps(dict1)
+print("dict1的类型："+str(type(dict1)))
+print("通过json.dumps()函数处理：")
+print("json_info的类型："+str(type(json_info)))
+# output
+dict1的类型：<class 'dict'>
+通过json.dumps()函数处理：
+json_info的类型：<class 'str'>
+```
+```python
+# loads
+import json
+
+# json.loads函数的使用，将字符串转化为字典
+json_info = '{"age": "12"}'
+dict1 = json.loads(json_info)
+print("json_info的类型："+str(type(json_info)))
+print("通过json.loads()函数处理：")
+print("dict1的类型："+str(type(dict1)))
+# output
+json_info的类型：<class 'str'>
+通过json.loads()函数处理：
+dict1的类型：<class 'dict'>
+```
+```python
+# dump
+import json
+
+# json.dump()函数的使用，将json信息写进文件
+json_info = "{'age': '12'}"
+file = open('1.json','w',encoding='utf-8')
+json.dump(json_info,file)
+#output
+json_info
+"{'age': '12'}"
+```
+```python
+# load
+import json
+
+# json.load()函数的使用，将读取json信息
+file = open('1.json','r',encoding='utf-8')
+info = json.load(file)
+print(info)
+# output
+{'age': '12'}
+```
+
 # Hierarchical Data Format (HDF5)
 [HDF in wiki](https://en.wikipedia.org/wiki/Hierarchical_Data_Format)
 **Hierarchical Data Format (HDF)** is a set of file formats (HDF4, HDF5) designed to store and organize large amounts of data. Originally developed at the National Center for Supercomputing Applications, it is supported by The HDF Group, a non-profit corporation whose mission is to ensure continued development of HDF5 technologies and the continued accessibility of data stored in HDF.
