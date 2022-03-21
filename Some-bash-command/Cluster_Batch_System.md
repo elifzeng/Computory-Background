@@ -29,6 +29,9 @@ and you can track its state and error by jobID `qstat -j jobID`. Track all users
 ```bash
 qstat | grep Eqw| cut -b 1-7|xargs qdel
 ```
+降低优先级`qalter {jobid} -p -80`  
+![image](https://user-images.githubusercontent.com/52747634/159194937-20ee00ca-c006-4a79-a101-8195fae451d6.png)
+
 
 ## Example2
 This is a job script named *qsub-test*. You can see more commmands pf `qsub` by `man qsub`.
