@@ -30,7 +30,11 @@ and you can track its state and error by jobID `qstat -j jobID`. Track all users
 qstat | grep Eqw| cut -b 1-7|xargs qdel
 ```
 降低优先级`qalter {jobid} -p -80`  
-![image](https://user-images.githubusercontent.com/52747634/159194937-20ee00ca-c006-4a79-a101-8195fae451d6.png)
+![image](https://user-images.githubusercontent.com/52747634/159194937-20ee00ca-c006-4a79-a101-8195fae451d6.png)  
+```bash
+# 批量降低优先级
+qstat -u \* |grep MPHE.*qw | cut -b 1-7 | xargs -i qalter {} -p -80
+```
 
 
 ## Example2
