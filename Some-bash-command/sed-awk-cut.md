@@ -64,5 +64,7 @@ sed -n '23,34p' aa.txt >>bb.txt # 打印aa.txt的23～34行并输出到bb.txt中
 （1）其语法格式为：  
 ```bash
 cut  [-bn] [file] 或 cut [-c] [file]  或  cut [-df] [file]
+# -d 后接分割字符，-f 后接数字，表示取出第几段
+cut -d 'separate symbol' -f field
 ```
 这里贴一个讲解比较详细的[链接](https://www.jianshu.com/p/1bbdbf1aa1bd)(awk, printf也有涉及)
