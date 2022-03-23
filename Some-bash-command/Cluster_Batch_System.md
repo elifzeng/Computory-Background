@@ -33,7 +33,7 @@ qstat | grep Eqw| cut -b 1-7|xargs qdel
 ![image](https://user-images.githubusercontent.com/52747634/159194937-20ee00ca-c006-4a79-a101-8195fae451d6.png)  
 ```bash
 # 批量降低优先级
-qstat -u \* |grep MPHE.*qw | cut -b 1-7 | xargs -i qalter {} -p -80
+qstat -u \* |grep MPHE.*qw | cut -b 1-7 | xargs -i qalter -p -80
 ```
 
 
