@@ -229,3 +229,12 @@ oup_center.close()
 # ax.set_zlabel('z')
 # fig.legend()
 # # fig.savefig('ddd')
+
+#%%
+# load image
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+
+img=mpimg.imread('image_name.png')
+# And plot the image if you want
+imgplot = plt.imshow(img)
