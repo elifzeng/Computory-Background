@@ -17,7 +17,7 @@ $ conda deactivate
 ```
 ## Delete a no longer needed virtual environment
 ```bash
-$ conda remove -n yourenvname --all
+$ conda env remove -n yourenvname
 ```
 ## List environment you created 
 ```bash
