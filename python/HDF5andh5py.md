@@ -95,7 +95,7 @@ with h5py.File("test.h5", 'w') as h5f:
         coords = np.around(np.asarray(m["coord"]) * 0.5291772083, decimals=4)
         energy = inteng[name]
         grp = h5f.create_group(name) # create group
-        grp.create_dataset("species", data=species) # create dataset, you can also specify dtype
+        grp.create_dataset("species", data=species, dtype='|S1') # create dataset, you can also specify dtype
         grp.create_dataset("coordinates", data=coords)
         grp.create_dataset("energy", data=energy)
 
