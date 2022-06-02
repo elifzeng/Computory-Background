@@ -29,6 +29,6 @@ for i, vali_data in enumerate(validation_set):
 validation_num = len(validation_set)
 for i in reversed(range(-validation_num,0)):
     if validation_num + i in rand_sel_index:
-        append_data_list.append(validation_set[i])
+        append_data_list.append(validation_set[validation_num + i])
         del validation_set[validation_num + i]
 ```
