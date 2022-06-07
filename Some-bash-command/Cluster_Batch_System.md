@@ -247,6 +247,8 @@ source /usr/bin/end_cuda.sh
 #!/bin/bash
 #$ -q ampere
 #$ -pe ampere 18
+# 或者只占一个gpu
+#$ -l ngpus=1
 #$ -cwd
 #$ -o /dev/null
 #$ -e /dev/null
