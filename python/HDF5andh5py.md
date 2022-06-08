@@ -78,7 +78,7 @@ dict(d2.items())
 #  'smiles': <HDF5 dataset "smiles": shape (17,), type "|S1">,
 #  'species': <HDF5 dataset "species": shape (5,), type "|S1">}
 
-# d2['coordinates'][()] # check contents in d2['coordinates']
+d2['coordinates'][()] # check contents in d2['coordinates']
 coords = np.array(d2['coordinates'])
 energies = np.array(d2['energies'])
 smiles = np.array(d2['smiles'])
