@@ -66,10 +66,10 @@ def test(i):
 if __name__ == "__main__":
     lists = range(100)
     pool = Pool()
-    pool.map(test, lists)
+    pool.map(test, lists) # 若有输出，此处返回一个list
     print("test")
-    pool.close()
-    pool.join()
+    pool.close()        # 关闭进程池，不再接受新的进程
+    pool.join()         # 主进程阻塞等待子进程的退出
 # %%
 # 异步进程池（非阻塞）
 from multiprocessing import Pool
