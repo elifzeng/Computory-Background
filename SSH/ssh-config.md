@@ -41,6 +41,11 @@ The last step can be skipped.
 _Most errors can be solved by this method_  
 **second method**
 get the commit id like `2d23c42a936db1c7b3b06f918cde29561cc47cd6`, and mannually run `https://vscode.cdn.azure.cn/stable/ccbaa2d27e38e5afa3e5c21c1c7bef4657064247/vscode-server-linux-x64.tar.gz` on local device. Then scp the `vscode-server-linux-x64.tar.gz` to `k**:/pubhome/lzeng/.vscode-server/bin/ccbaa2d27e38e5afa3e5c21c1c7bef4657064247/`
+### Still break when using vscode remote explore
+In setting, select `Remote.SSH:Lockfiles In Tmp`  
+
+![image](https://user-images.githubusercontent.com/52747634/175850287-d25c6769-e7c1-4a22-910f-3d28bb3f62c0.png)
+
 ### Just for backup
 ```bash
 Host hn
