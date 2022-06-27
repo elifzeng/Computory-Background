@@ -225,7 +225,6 @@ export -f Calc90ulateEng
 parallel --link CalculateEng ::: ${filelist[@]} ::: ${outputlist[@]} # 传两个参数（no combination）
 ```
 传参参考了[这里](https://blog.csdn.net/weixin_29602351/article/details/116863908)
-# Disk quota exceeded
 
 # GPU task commitment
 命令不懂的可以搜索`man qsub`。
@@ -241,6 +240,12 @@ source /usr/bin/startcuda.sh
 MY COMMAND
 source /usr/bin/end_cuda.sh
 ```
+## chack all ampere status
+查看每台机器上哪张gpu卡已经被使用了。
+```bash
+pdsh -w ssh:k[224-233] ' nvidia-smi|grep MiB|grep -v %'|sort
+```
+
 # GPU/CPU sleep
 先占领几个core，然后再在上面运行测试程序
 ```bash
