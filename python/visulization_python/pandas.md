@@ -5,6 +5,7 @@ cluster_summary = pd.read_csv('CltResults/temp/cluster_summary.csv',index_col=0)
 print(cluster_summary.to_string)
 ```
 ## [csv operation](https://www.runoob.com/pandas/pandas-csv-file.html)
+[简单的读写索引](https://blog.csdn.net/Parzival_/article/details/114240650)
 
 ## [DataFrame operation]
 当用`pd.read_csv()`读入文件数据后，数据类型变为`DataFrame`。
