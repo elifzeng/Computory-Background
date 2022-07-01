@@ -143,3 +143,70 @@ array([[1, 2, 3],
 ```
 ## 储存numpy
 [Python数据存储与压缩](https://blog.csdn.net/songbinxu/article/details/84942095#:~:text=Python%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%8E%E5%8E%8B%E7%BC%A9%E6%96%B9%E5%BC%8F%201.%20numpy.save%20%2F%20numpy.savez%20%E5%88%A9%E7%94%A8%20np.save%20%28file%2C,obj%29%20%E5%B0%86%E5%8D%95%E4%B8%AATensor%E4%BF%9D%E5%AD%98%E4%B8%BA.npy%20%E6%96%87%E4%BB%B6%EF%BC%8C%E5%88%A9%E7%94%A8%20np.save%20%28file%2C%20%2A%2Aobj%29%20%E5%B0%86%E5%A4%9A%E4%B8%AATensor%E4%BB%A5%E5%AD%97%E5%85%B8%E7%9A%84%E5%BD%A2%E5%BC%8F%E5%AD%98%E5%82%A8%E4%B8%BA.npz%20%E6%96%87%E4%BB%B6%EF%BC%8C%E5%8F%AF%E5%AE%9E%E7%8E%B0%E5%A4%9ATensor%E5%AD%98%E5%82%A8%E3%80%82)  
+```python
+'''np.savez'''
+data = {'X':X, 'Y':Y}
+np.savez("test/data.npz", **data)
+
+'''from .npz'''
+data = np.load("test/data.npz")
+X, Y = data['X'], data['Y']
+print X.shape, type(X)
+print Y.shape, type(Y)
+
+# savez_compressed 用法相同（我使用的是savez_compressed），但
+# savez_compressed  Save several arrays into a single file in compressed .npz format
+# savez Save several arrays into an uncompressed .npz file format
+test_array = np.random.rand(3, 2)
+test_vector = np.random.rand(4)
+np.savez_compressed('/tmp/123', a=test_array, b=test_vector)
+loaded = np.load('/tmp/123.npz')
+```
+### Example
+```python
+import pickle
+import numpy as np
+# convert coordinates data to  numpy array 
+# and saved in .npz format
+with open('dataset_final.pkl','rb') as f:
+    dataset = pickle.load(f)
+
+training = dataset['training']
+
+dicta = {}
+for i, j in enumerate(training):
+    # notice that the keys for savez can only be string
+    dicta[str(i)] = j['coordinates']
+
+np.savez_compressed('/tmp/123', **dicta)
+# load data
+loada = np.load('/tmp/123.npz')
+>>> type(loada)
+# <class 'numpy.lib.npyio.NpzFile'>
+>>> list(loada.keys())
+# ['0', '1', '2', '3', '4', '5', ...]
+>>> loada['1']
+# array([[ 5.2726e+00,  2.6682e+00,  3.3760e+00],
+#        [ 4.7571e+00,  2.2762e+00,  4.1348e+00],
+#        [ 5.3766e+00,  3.6514e+00,  3.5093e+00],
+#        [ 6.2664e+00,  2.2204e+00,  3.3785e+00],
+#        [ 4.4510e+00,  2.4668e+00,  2.1189e+00],
+#        [ 4.7846e+00,  1.5355e+00,  1.3184e+00],
+#        [ 3.4558e+00,  3.2181e+00,  1.9703e+00],
+#        [ 2.9152e+00,  3.1209e+00,  1.1843e+00],
+#        [-1.2409e+00, -7.5740e-01,  0.0000e+00],
+#        [-1.2027e+00, -1.4677e+00, -6.9380e-01],
+#        [-2.0086e+00, -1.4810e-01, -1.6550e-01],
+#        [-1.4114e+00, -1.2451e+00,  9.5980e-01],
+#        [ 0.0000e+00,  0.0000e+00,  0.0000e+00],
+#        [-8.0000e-02,  1.0233e+00,  2.0000e-04],
+#        [ 1.2409e+00, -4.9300e-01, -0.0000e+00],
+#        [ 1.4775e+00, -1.7939e+00, -8.8300e-02],
+#        [ 7.1150e-01, -2.4342e+00, -1.7810e-01],
+#        [ 2.4154e+00, -2.1379e+00, -6.6600e-02],
+#        [ 2.2726e+00,  3.3250e-01,  9.2400e-02],
+#        [ 2.1195e+00,  1.3220e+00,  1.4190e-01],
+#        [ 3.2051e+00, -2.7600e-02,  1.1170e-01]])
+>>> type(loada['1'])
+# <class 'numpy.ndarray'>
+```
