@@ -27,3 +27,5 @@ ssh-config-change(){
 #6 `$#`传递给脚本或函数的参数个数。`-ne`为不等于(其他比较符号见[page](https://blog.csdn.net/qiuyoungster/article/details/46999559))。  
 #13 `$1`为传递给脚本的第一个参数。  
 
+# 免密登陆
+本机公钥复制到远程机器上。有时已经复制到远程机器上仍然需要输密码，可能是`~/.ssh/`或者`~/.ssh/authorized_keys`文件权限不为`700`，修改后就可以了。
