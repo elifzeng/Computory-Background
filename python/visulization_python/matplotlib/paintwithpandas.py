@@ -18,8 +18,8 @@ for frame in dataframes:
 # %%
 # 绘图，改变横坐标刻度间距，使得横坐标不重叠
 graph = allatoms.plot.bar(x="interval", figsize=(17,9),width=1)
-graph.set_xlabel('Distance(Å)',Fontsize=18)
-graph.set_ylabel('Number',Fontsize=18)
+graph.set_xlabel('Distance(Å)',fontsize=18)
+graph.set_ylabel('Number',fontsize=18)
 graph.set_title('Distance between halogen atom and lysine side chain nitrogen atom',Fontsize=18)
 # cmap = ListedColormap([])
 # plt.savefig('ddd.jpg')
