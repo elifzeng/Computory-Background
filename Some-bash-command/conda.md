@@ -1,3 +1,41 @@
+# Uninstall and install Anaconda
+_由于实验室集群为centos，此处以centos为例—_
+[CentOS安装/卸载Anaconda（图文详解）](https://cloud.tencent.com/developer/article/2065512)  
+## Uninstall
+直接删除anaconda3文件夹，注意，如果要重装，注意保留版本信息和包信息。
+```bash
+rm -rfv ~/anaconda3
+# 清理.bashrc中的anaconda路径
+vim ~/.bashrc
+# del PATH=/yourInstallPath/anaconda3/bin:$PATH
+source ~/.bashrc
+# 重启terminal
+```
+## Install
+1. 在[官方](https://docs.anaconda.com/anaconda/packages/oldpkglists/)查看版本信息，找到需要的版本并下载。条件不允许时可在[清华源](https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/)下载。
+```bash
+wget https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh
+# or 清华源
+wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2021.05-Linux-x86_64.sh
+```
+2. 安装Anaconda
+```bash
+bash Anaconda3-2021.05-Linux-x86_64.sh
+# press ENTER fot "Please, press ENTER to continue"
+# input yes for "Do you accept the license terms? [yes|no]"
+# press ENTER or input specific location for "Anaconda3 will now be installed into this location:"
+# input yes for "Do you wish the installer to initialize Anaconda3 by running conda init? [yes|no]"
+```
+3. 添加环境
+```bash
+source ~/.bashrc
+```
+完成base环境地添加。若未能添加成功，可以手动添加环境变量
+```bash
+export PATH=/yourInstallPath/anaconda3/bin:$PATH
+source ~/.bashrc
+```
+
 # Create a virtual environment for your project
 [see more](https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/20/conda/)
 ```bash
