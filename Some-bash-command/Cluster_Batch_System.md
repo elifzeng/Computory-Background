@@ -78,7 +78,32 @@ Disk quotas for usr lzeng (uid 5056):
       /pubhome/  1.667T      0k      0k       - 3500000* 3000000 3500000       -
 uid 5056 is using default block quota setting
 ```
-上面可以看到，是文件数超额里，接下来怎么解决自己想办法吧。。。
+上面可以看到，是文件数超额里，接下来怎么解决自己想办法吧。。。  
+## mpirun
+k队列上跑orca内存不够。因此采取“占据32核，实际跑20核”的办法。需要[使用mpirun](https://www.cnblogs.com/devilmaycry812839668/p/15132333.html)。  
+示例：
+```bash
+#! /bin/bash
+##$ -N wb97
+#$ -q opel
+#$ -pe opel 32
+#$ -o /pubhome/lzeng/data/error
+#$ -e /pubhome/lzeng/data/error
+#$ -wd /pubhome/lzeng/CPFrags/run_orca/qm_selection
+
+source ~/.bashrc
+conda activate py37
+
+# for i in $(ls ~/data/pair25/redun_coord/??*.npz);do qsub -N $( basename $i )wb97 ～/CPFrags/run_orca/qm_selection/cal_energy_npz.sh $i; done
+
+# get input file and output path
+
+filebase=$( basename $1 )
+m=$( echo $filebase | cut -d "." -f 1 )
+oup="/pubhome/lzeng/data/QM_energy/wb97rot_$m"
+echo Processing $filebase
+mpirun -np 20 python /pubhome/lzeng/CPFrags/run_orca/qm_selection/cal_energy_npz.py $1 -o $oup
+```
 # A Instance Example
 
 ```bash
