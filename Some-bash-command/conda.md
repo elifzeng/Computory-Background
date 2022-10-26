@@ -35,12 +35,18 @@ $conda activate mummer4
 (mummer4)
 ```
 即不显示`[用户名@主机名 当前路径]$`。解决办法：
+针对单一虚拟环境设置：
 ```bash
 $conda activate mummer4
 $conda env config vars set PS1='($CONDA_DEFAULT_ENV)[\u@\h \W]$'
 $conda deactivate
 $conda activate mummer4
 (mummer4)[user1@login1 ~/temp]$pwd
+```
+参考:https://zhuanlan.zhihu.com/p/572716915  
+针对全局虚拟环境设置：
+```bash
+conda config --set env_prompt "({default_env})[\u@\h \W]$"
 ```
 3. 添加环境
 ```bash
