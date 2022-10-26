@@ -29,6 +29,19 @@ bash Anaconda3-2021.05-Linux-x86_64.sh
 # press ENTER or input specific location for "Anaconda3 will now be installed into this location:"
 # input yes for "Do you wish the installer to initialize Anaconda3 by running conda init? [yes|no]"
 ```
+安装conda后可能会重置环境变量`$PS1`:
+```bash
+$conda activate mummer4
+(mummer4)
+```
+即不显示`[用户名@主机名 当前路径]$`。解决办法：
+```bash
+$conda activate mummer4
+$conda env config vars set PS1='($CONDA_DEFAULT_ENV)[\u@\h \W]$'
+$conda deactivate
+$conda activate mummer4
+(mummer4)[user1@login1 ~/temp]$pwd
+```
 3. 添加环境
 ```bash
 source ~/.bashrc
