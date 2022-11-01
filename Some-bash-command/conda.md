@@ -92,6 +92,24 @@ conda install [package] -c conda-forge
 ```bash
 conda search package
 ```
+## Export conda or pip environment & install env with export file
+### conda
+```bash
+# export
+conda env export > environment.yaml
+# install
+conda env create -f environment.yaml
+# update existed env with .yaml file
+conda env update -n my_env --file ENV.yaml
+```
+### pip
+```bash
+# export
+pip freeze >requirements.txt
+# install
+pip install -r requirements.txt
+```
+
 ## Install miniconda
 https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html#install-macos-silent
 ## 将一些环境变量和virtual environment绑定在一起
