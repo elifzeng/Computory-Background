@@ -35,8 +35,13 @@ qstat | grep Eqw| cut -b 1-7|xargs qdel
 # 批量降低优先级
 qstat -u \* |grep MPHE.*qw | cut -b 1-7 | xargs -i qalter -p -80
 ```
-
-
+指定某几台机器运行任务  
+```bash
+指定只在n120-n129
+qstat -q honda -u lzeng02 | awk '{print $1}' | xargs -I jobid qalter jobid -l hostname=n12[0-9]
+指定不在n120-n129
+qstat -q honda -u lzeng02 | awk '{print $1}' | xargs -I jobid qalter jobid -l hostname=!(n12[0-9])
+```
 ## Example2
 This is a job script named *qsub-test*. You can see more commmands pf `qsub` by `man qsub`.
 ```bash
