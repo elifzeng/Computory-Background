@@ -42,6 +42,7 @@ qstat -q honda -u lzeng02 | awk '{print $1}' | xargs -I jobid qalter jobid -l ho
 指定不在n120-n129
 qstat -q honda -u lzeng02 | awk '{print $1}' | xargs -I jobid qalter jobid -l hostname=!(n12[0-9])
 ```
+可以添加`-R y`选项，这样当你的优先级比别人的高理论上可以把空闲节点锁住，直到有（指定的）28个空闲节点，把你的任务提交上去，在此期间优先级低于你但是申请核数少的任务是抢不过你的。  
 ## Example2
 This is a job script named *qsub-test*. You can see more commmands pf `qsub` by `man qsub`.
 ```bash
