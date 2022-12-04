@@ -52,4 +52,11 @@ python是动态类型的语言，对象与引用分离。
 ```python
 a = 1
 ```
-`a` 为引用，`1` 为对象。利用上述赋值语句，将引用`a`指向对象`1`。
+`a` 为引用，`1` 为对象。利用上述赋值语句，将引用`a`指向对象`1`。   
+
+## sys.path
+返回包检索路径
+```python
+>>> print(sys.path)
+['', '/pubhome/lzeng/anaconda3/envs/py37/lib/python37.zip', '/pubhome/lzeng/anaconda3/envs/py37/lib/python3.7', '/pubhome/lzeng/anaconda3/envs/py37/lib/python3.7/lib-dynload', '/pubhome/lzeng/.local/lib/python3.7/site-packages', '/pubhome/lzeng/anaconda3/envs/py37/lib/python3.7/site-packages']
+```
