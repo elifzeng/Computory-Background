@@ -83,6 +83,9 @@ $ conda env remove -n yourenvname
 ```bash
 conda env list
 ```
+## Auto activate virtual environment in Visual Studio Code
+![image](https://user-images.githubusercontent.com/52747634/205565018-42a95c34-cf05-4d03-bc07-d386d9555d66.png)
+
 # Install some package or version not in official library with [conda-forge](https://github.com/conda-forge/conda-forge.github.io)
 what's [conda-forge](https://cloud.tencent.com/developer/article/1035806) ?
 ```bash
