@@ -59,3 +59,16 @@ Host x??? n??? k??? z55 xn xk
 Host x021
     User zenglj
 ```
+# About VSCode Extension Remote Explorer
+今天使用新机子同步VSCode设置时发现，remote explorer无法正常使用并提示我安装[Docker](https://www.cnblogs.com/qcloud1001/p/9273549.html)。由于过程有点复杂，在此记录一下。  
+1. [在终端安装docker](https://www.how2shout.com/linux/what-do-we-need-to-install-docker-on-rhel-8/)。这一步我怀疑可以不做。
+2. 在VSCode Extension中搜索安装 Docker  
+![image](https://user-images.githubusercontent.com/52747634/211251009-f10d5906-8567-437b-910c-c667cccd2994.png)
+
+3. 刚安装完上面的插件时可能会出现以下报错：
+```bash
+Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/build?buildargs=%7B%7D&cachefrom=%5B%5D&cgroupparent=&cpuperiod=0&cpuquota=0&cpusetcpus=&cpusetmems=&cpushares=0&dockerfile=Dockerfile&labels=%7B%7D&memory=0&memswap=0&networkmode=default&pull=1&rm=1&shmsize=0&t=controlwharehouse%3Alatest&target=&ulimits=null&version=1": dial unix /var/run/docker.sock: connect: permission denied
+```
+解决办法：[Run the Docker daemon as a non-root user (Rootless mode)](https://docs.docker.com/engine/security/rootless/)  
+4.
+
