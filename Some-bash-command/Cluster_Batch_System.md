@@ -293,3 +293,5 @@ source /usr/bin/startcuda.sh
 sleep 7d
 source /usr/bin/end_cuda.sh
 ```
+## 新cluster 机器
+![image](https://user-images.githubusercontent.com/52747634/213122049-18d72365-9992-4cb3-a880-964b64efc851.png)
