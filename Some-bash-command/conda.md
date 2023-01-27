@@ -117,7 +117,36 @@ pip install -r requirements.txt
 https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html#install-macos-silent
 ## 将一些环境变量和virtual environment绑定在一起
 https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#macos-and-linux
+## CommandNotFoundError: Your shell has not been properly configured to use 'conda activate'.
+```
+# error output
+[nibs_nhuang_1@lon26:bin]$ ./conda activate base
 
+CommandNotFoundError: Your shell has not been properly configured to use 'conda activate'.
+To initialize your shell, run
+
+    $ conda init <SHELL_NAME>
+
+Currently supported shells are:
+  - bash
+  - fish
+  - tcsh
+  - xonsh
+  - zsh
+  - powershell
+
+See 'conda init --help' for more information and options.
+
+IMPORTANT: You may need to close and restart your shell after running 'conda init'. 
+```
+解决办法：
+```bash
+1  首先终端输入 source activate
+
+2 然后终端输入 source deactivate
+
+3 输入你要激活的虚拟环境指令 conda activate your_virtual_name
+```
 ## environments I usuallly use
 ```bash
 #since now htmd only support python <=3.8.0.a1
