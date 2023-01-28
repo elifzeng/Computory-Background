@@ -64,7 +64,22 @@ _Notice_:如果某些应用的代理不支持`http_proxy, https_proxy`，可以�
 ### 补充知识
 等我先能运行任务再说把，tmd.
 
-
+# 超算（slurm集群管理系统）常用命令
+`sinfo`： 粗略查看所有分区的节点信息。**STATE**栏为`idle`表示该节点处于闲置状态。`alloc`表示该节点无多余资源，`mix`表示部分被占用。但超算系统节点只能被一个用户占用，无法将共享，需要注意。  
+`scontrol show node <nodename>`：显示节点详细信息。如：
+```bash
+[nibs_nhuang_1@lon26:~]$ scontrol show node cn7298
+NodeName=cn7298 Arch=x86_64 CoresPerSocket=12
+   CPUAlloc=24 CPUErr=0 CPUTot=24 CPULoad=24.01 Features=(null)
+   Gres=(null)
+   NodeAddr=cn7298 NodeHostName=cn7298
+   OS=Linux RealMemory=64000 AllocMem=0 Sockets=2 Boards=1
+   State=ALLOCATED ThreadsPerCore=1 TmpDisk=0 Weight=1
+   BootTime=2022-12-31T09:32:56 SlurmdStartTime=2022-12-31T09:55:15
+   CurrentWatts=0 LowestJoules=0 ConsumedJoules=0
+   ExtSensorsJoules=n/s ExtSensorsWatts=0 ExtSensorsTemp=n/s
+```
+即每个超算节点有24个CPU（CPUTot），目前使用了24个（CPUAlloc）,内存共64000M（RealMemory），使用了0M（AllocMem）。（什么任务用24个核但是不用内存？！）
 
 
 
