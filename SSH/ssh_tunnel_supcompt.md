@@ -28,9 +28,37 @@ Release:	8.7
 Codename:	GreenObsidian
 ```
 相当于centos 7.
+## 理论知识
+需要了解的：squid, ssh 隧道，sysctl restart squid  
+port 3128  
+tepip  
+### squid
+其实就是一个缓存工具。功能丰富的Web代理缓存服务器软件，可为流行的网络协议（包括HTTP, HTTPS和FTP）提供代理和缓存服务。  
+![image](https://user-images.githubusercontent.com/52747634/215239580-fa39c33b-d35b-4e18-9693-352f8beecd69.png)  
+它接收来自客户端的请求并将它们传递到指定的后端服务器。后端服务器响应时，会将内容的副本存储在缓存中，然后将其传递给客户端。将来对相同内容的请求将从缓存中得到处理，从而将内容更快地传递到客户端。因此，它可以优化客户端和服务器之间的数据流以提高性能，并缓存常用内容以减少网络流量并节省带宽。
+Squid可用于做服务器的统一出口，把squid作为能够出[公网](https://www.zhihu.com/question/337578873)的设备，然后为所有需要出公网的服务器进行代理设置，从而带动内网服务器能够上网。  
 
-
-
+### 操作步骤
+1. x024上安装squid
+```bash
+# RHEL7 系统的安装光盘中自带了Squid的RPM格式的软件包。
+yum -y install squid
+systemctl restart squid
+```
+2. 保证x024能ssh连到超算上
+_Notice_:要保持Node52网页VPN正常连通
+3. 打通ssh 隧道
+```bash
+ssh  -tR 31128:localhost:3128  -p2222 nibs@node52  ssh -p5566  -R 31128:localhost:31128  nibs_nhuang_1@172.16.22.11 -i nibs_nhuang_1.id
+```
+这个命令运行结果不稳定，要多试几次。
+4. 在`.bashrc`中添加代理协议和端口
+```bash
+# ~/.bashrc
+export http_proxy=127.0.0.1:31128
+export https_proxy=127.0.0.1:31128
+```
+_Notice_:如果某些应用的代理不支持`http_proxy, https_proxy`，可以在网页上用`vscode proxy`类似关键词搜索其代理协议。
 
 
 
