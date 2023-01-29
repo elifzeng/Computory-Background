@@ -65,6 +65,7 @@ _Notice_:如果某些应用的代理不支持`http_proxy, https_proxy`，可以�
 等我先能运行任务再说把，tmd.
 
 # 超算（slurm集群管理系统）常用命令
+## Check status
 `sinfo`： 粗略查看所有分区的节点信息。**STATE**栏为`idle`表示该节点处于闲置状态。`alloc`表示该节点无多余资源，`mix`表示部分被占用。但超算系统节点只能被一个用户占用，无法将共享，需要注意。  
 `scontrol show node <nodename>`：显示节点详细信息。如：
 ```bash
@@ -81,7 +82,38 @@ NodeName=cn7298 Arch=x86_64 CoresPerSocket=12
 ```
 即每个超算节点有24个CPU（CPUTot），目前使用了24个（CPUAlloc）,内存共64000M（RealMemory），使用了0M（AllocMem）。（什么任务用24个核但是不用内存？！）  
 `scontrol show job JOBID`: 查看详细作业信息。  
+`yhq -j JOBID`：查看作业简要信息。
 
+## bash script examples
+```bash
+#!/bin/bash
+#!/bin/bash
+#SBATCH -N 1 -p bigdata
+#SBATCH -o /BIGDATA1/nibs_nhuang_1/lzeng/data/error/o%j
+#SBATCH -e /BIGDATA1/nibs_nhuang_1/lzeng/data/error/e%j
+#SBATCH -D /BIGDATA1/nibs_nhuang_1/lzeng/
+
+date
+hostname
+# 这里貌似有点问题，可能无法启动conda?但没有影响运行结果
+# 为了保证conda已启动，可以在~/.bashrc下写入了source $HOME/miniconda3/bin/activate
+# 但为了不影响以后的同学使用，跑完任务后应该注释掉
+source ~/.bashrc
+source /BIGDATA1/nibs_nhuang_1/miniconda3/bin/activate
+conda activate sampling
+
+export PATH=$PATH:/BIGDATA1/nibs_nhuang_1/prog/orca_5_0_0_linux_x86-64_shared_openmpi411/
+export LD_LIBRARY_PATH=/BIGDATA1/nibs_nhuang_1/prog/orca_5_0_0_linux_x86-64_shared_openmpi411/:$LD_LIBRARY_PATH
+
+filebase=$( basename $1 )
+m=$( echo $filebase | cut -d "." -f 1 )
+oup="/BIGDATA1/nibs_nhuang_1/lzeng/data/QM_energy/wb97rot_$m"
+echo Processing $filebase
+python /BIGDATA1/nibs_nhuang_1/lzeng/cal_energy_npz.py $1 -o $oup
+date 
+
+# for i in /BIGDATA1/nibs_nhuang_1/lzeng/data/npz_files/??*.npz ;do yhbatch -J $( basename $i )wb97 /BIGDATA1/nibs_nhuang_1/lzeng/run_orca.sh  $i; done
+```
 
 
 
