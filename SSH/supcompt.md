@@ -82,7 +82,8 @@ NodeName=cn7298 Arch=x86_64 CoresPerSocket=12
 ```
 即每个超算节点有24个CPU（CPUTot），目前使用了24个（CPUAlloc）,内存共64000M（RealMemory），使用了0M（AllocMem）。（什么任务用24个核但是不用内存？！）  
 `scontrol show job JOBID`: 查看详细作业信息。  
-`yhq -j JOBID`：查看作业简要信息。
+`yhq -j JOBID`：查看作业简要信息。  
+`scontrol update jobid=xxx minmemorynode=300`修改已提交的作业设置。`minmemorynode`是设置内存，可以替换为其他的。  
 
 ## bash script examples
 ```bash
