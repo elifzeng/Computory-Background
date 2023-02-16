@@ -132,7 +132,9 @@ mv log $k
 mv $k /home/lzeng02/data/extra_1/nmrclust_log/
 done
 ```
-# Parallel Example 1
+# Parallel
+
+## Parallel Example 1
 ```bash
 #!/bin/bash
 #$ -q benz
@@ -188,7 +190,7 @@ qsub parallel_run.sh //tmp/lzeng02/pdb4
 ```
 参数为储存所有文件的大文件夹。
 
-# Parallel Example 2
+## Parallel Example 2
 ```bash
 #!/bin/bash
 ##$ -N qmcal_n
@@ -255,7 +257,13 @@ function CalculateEng(){
 export -f Calc90ulateEng
 parallel --link CalculateEng ::: ${filelist[@]} ::: ${outputlist[@]} # 传两个参数（no combination）
 ```
-传参参考了[这里](https://blog.csdn.net/weixin_29602351/article/details/116863908)
+传参参考了[这里](https://blog.csdn.net/weixin_29602351/article/details/116863908)  
+
+## 并行效率，IO负荷及优化策略
+由于任何程序的并行效率都是随着核数增加而降低，当机子核数比较多的时候，比如有好几十核，而且又有许多任务要跑的时候，比起一个一个调用所有核心来跑，同时跑两个或者多个任务但是每个都用较少的核心数（总和不超过物理核心数），总耗时通常会更低。对于某些程序跑某些任务，甚至并行核数较少的时候反倒比核数较多的时候速度还更快。因此在核数较多的机子上，同时跑多个任务是很常见的事情。  
+
+然而，同时跑多个任务涉及到资源争抢问题，如果争抢得比较厉害，跑多个任务的效率会大打折扣，甚至可能还不如一个一个用所有核来跑。  
+[通过设置CPU内核绑定降低ORCA同时做多任务的耗时](http://sobereva.com/553)  
 
 # GPU task commitment
 命令不懂的可以搜索`man qsub`。
@@ -294,4 +302,56 @@ sleep 7d
 source /usr/bin/end_cuda.sh
 ```
 ## 新cluster 机器
-![image](https://user-images.githubusercontent.com/52747634/213122049-18d72365-9992-4cb3-a880-964b64efc851.png)
+![image](https://user-images.githubusercontent.com/52747634/213122049-18d72365-9992-4cb3-a880-964b64efc851.png)  
+
+# 超算（slurm集群管理系统）常用命令
+## Check status
+`sinfo`： 粗略查看所有分区的节点信息。**STATE**栏为`idle`表示该节点处于闲置状态。`alloc`表示该节点无多余资源，`mix`表示部分被占用。但超算系统节点只能被一个用户占用，无法将共享，需要注意。  
+`scontrol show node <nodename>`：显示节点详细信息。如：
+```bash
+[nibs_nhuang_1@lon26:~]$ scontrol show node cn7298
+NodeName=cn7298 Arch=x86_64 CoresPerSocket=12
+   CPUAlloc=24 CPUErr=0 CPUTot=24 CPULoad=24.01 Features=(null)
+   Gres=(null)
+   NodeAddr=cn7298 NodeHostName=cn7298
+   OS=Linux RealMemory=64000 AllocMem=0 Sockets=2 Boards=1
+   State=ALLOCATED ThreadsPerCore=1 TmpDisk=0 Weight=1
+   BootTime=2022-12-31T09:32:56 SlurmdStartTime=2022-12-31T09:55:15
+   CurrentWatts=0 LowestJoules=0 ConsumedJoules=0
+   ExtSensorsJoules=n/s ExtSensorsWatts=0 ExtSensorsTemp=n/s
+```
+即每个超算节点有24个CPU（CPUTot），目前使用了24个（CPUAlloc）,内存共64000M（RealMemory），使用了0M（AllocMem）。（什么任务用24个核但是不用内存？！）  
+`scontrol show job JOBID`: 查看详细作业信息。  
+`yhq -j JOBID`：查看作业简要信息。  
+`scontrol update jobid=xxx minmemorynode=300`修改已提交的作业设置。`minmemorynode`是设置内存，可以替换为其他的。  
+
+## bash script examples
+```bash
+#!/bin/bash
+#!/bin/bash
+#SBATCH -N 1 -p bigdata
+#SBATCH -o /BIGDATA1/nibs_nhuang_1/lzeng/data/error/o%j
+#SBATCH -e /BIGDATA1/nibs_nhuang_1/lzeng/data/error/e%j
+#SBATCH -D /BIGDATA1/nibs_nhuang_1/lzeng/
+
+date
+hostname
+# 这里貌似有点问题，可能无法启动conda?但没有影响运行结果
+# 为了保证conda已启动，可以在~/.bashrc下写入了source $HOME/miniconda3/bin/activate
+# 但为了不影响以后的同学使用，跑完任务后应该注释掉
+source ~/.bashrc
+source /BIGDATA1/nibs_nhuang_1/miniconda3/bin/activate
+conda activate sampling
+
+export PATH=$PATH:/BIGDATA1/nibs_nhuang_1/prog/orca_5_0_0_linux_x86-64_shared_openmpi411/
+export LD_LIBRARY_PATH=/BIGDATA1/nibs_nhuang_1/prog/orca_5_0_0_linux_x86-64_shared_openmpi411/:$LD_LIBRARY_PATH
+
+filebase=$( basename $1 )
+m=$( echo $filebase | cut -d "." -f 1 )
+oup="/BIGDATA1/nibs_nhuang_1/lzeng/data/QM_energy/wb97rot_$m"
+echo Processing $filebase
+python /BIGDATA1/nibs_nhuang_1/lzeng/cal_energy_npz.py $1 -o $oup
+date 
+
+# for i in /BIGDATA1/nibs_nhuang_1/lzeng/data/npz_files/??*.npz ;do yhbatch -J $( basename $i )wb97 /BIGDATA1/nibs_nhuang_1/lzeng/run_orca.sh  $i; done
+```
