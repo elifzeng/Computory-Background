@@ -115,6 +115,58 @@ date
 
 # for i in /BIGDATA1/nibs_nhuang_1/lzeng/data/npz_files/??*.npz ;do yhbatch -J $( basename $i )wb97 /BIGDATA1/nibs_nhuang_1/lzeng/run_orca.sh  $i; done
 ```
+# 提交并行任务
+一个节点上提交6个任务同时跑。  
+超算的任务管理有点弱智，我指定每个任务用4个核，提交了5个任务，5个任务会被分配在不同的节点上，逆天💆。原来是因为只要提交了任务就认定该节点被占用了，不能提交其他任务了。  
+解决超算上并行提交任务的问题的办法：
+脚本`mpirun_orca.sh`调用`cal_energy_npz_nprocs.sh`  
+```bash
+# mpirun_orca.sh
+#!/bin/bash
+#SBATCH -N 1 --ntasks=6 -p bigdata
+# cpu per task
+#SBATCH -c 4
+#SBATCH --ntasks-per-node=6
+#SBATCH -o /BIGDATA1/nibs_nhuang_1/lzeng/data/error/o%j
+#SBATCH -e /BIGDATA1/nibs_nhuang_1/lzeng/data/error/e%j
+#SBATCH -D /BIGDATA1/nibs_nhuang_1/lzeng/
+
+# yhbatch -J xxxwb97 xxx.sh /a/b/frag1_frag2 start_index_num end_index_num
+date
+#hostname
+source ~/.bashrc
+source /BIGDATA1/nibs_nhuang_1/miniconda3/bin/activate
+conda activate sampling
+which python
+export PATH=$PATH:/BIGDATA1/nibs_nhuang_1/prog/orca_5_0_0_linux_x86-64_shared_openmpi411/
+export LD_LIBRARY_PATH=/BIGDATA1/nibs_nhuang_1/prog/orca_5_0_0_linux_x86-64_shared_openmpi411/:$LD_LIBRARY_PATH 
+
+for i in $( seq $2 2500 $3 )
+do
+        {
+                m="$1_$i.npz"
+                bash /BIGDATA1/nibs_nhuang_1/lzeng/cal_energy_npz_nprocs.sh $m
+        }&
+done
+date
+```
+```bash
+# cal_energy_npz_nprocs.sh
+#!/bin/bash
+
+date
+hostname
+
+#export PATH=$PATH:/BIGDATA1/nibs_nhuang_1/prog/orca_5_0_0_linux_x86-64_shared_openmpi411/
+#export LD_LIBRARY_PATH=/BIGDATA1/nibs_nhuang_1/prog/orca_5_0_0_linux_x86-64_shared_openmpi411/:$LD_LIBRARY_PATH
+
+filebase=$( basename $1 )
+m=$( echo $filebase | cut -d "." -f 1 )
+oup="/BIGDATA1/nibs_nhuang_1/lzeng/data/QM_energy/wb97rot_$m"
+echo Processing $filebase
+python /BIGDATA1/nibs_nhuang_1/lzeng/cal_energy_npz.py $1 -o $oup
+date
+```
 
 
 
