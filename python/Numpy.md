@@ -141,6 +141,24 @@ array([[1, 2, 3],
        [0, 0, 9],
        [0, 0, 0]])
 ```
+## Merge two numpy arrays
+`np.concatenate`
+```python
+import numpy as np
+
+first = np.array([[650001.88, 300442.2,   18.73,  0.575,  
+                   650002.094, 300441.668, 18.775],
+                  [650001.96, 300443.4,   18.7,   0.65,   
+                   650002.571, 300443.182, 18.745],
+                  [650002.95, 300442.54,  18.82,  0.473,  
+                   650003.056, 300442.085, 18.745]])
+
+second = np.array([[1],
+                   [2],
+                   [3]])
+
+np.concatenate((first, second), axis=1)
+```
 ## 储存numpy
 [Python数据存储与压缩](https://blog.csdn.net/songbinxu/article/details/84942095#:~:text=Python%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%8E%E5%8E%8B%E7%BC%A9%E6%96%B9%E5%BC%8F%201.%20numpy.save%20%2F%20numpy.savez%20%E5%88%A9%E7%94%A8%20np.save%20%28file%2C,obj%29%20%E5%B0%86%E5%8D%95%E4%B8%AATensor%E4%BF%9D%E5%AD%98%E4%B8%BA.npy%20%E6%96%87%E4%BB%B6%EF%BC%8C%E5%88%A9%E7%94%A8%20np.save%20%28file%2C%20%2A%2Aobj%29%20%E5%B0%86%E5%A4%9A%E4%B8%AATensor%E4%BB%A5%E5%AD%97%E5%85%B8%E7%9A%84%E5%BD%A2%E5%BC%8F%E5%AD%98%E5%82%A8%E4%B8%BA.npz%20%E6%96%87%E4%BB%B6%EF%BC%8C%E5%8F%AF%E5%AE%9E%E7%8E%B0%E5%A4%9ATensor%E5%AD%98%E5%82%A8%E3%80%82)  
 `.npz`文件相当于一个字典。
