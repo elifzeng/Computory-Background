@@ -142,7 +142,7 @@ array([[1, 2, 3],
        [0, 0, 0]])
 ```
 ## Merge two numpy arrays
-`np.concatenate`
+合并两个array：`np.concatenate` 
 ```python
 import numpy as np
 
