@@ -246,7 +246,7 @@ loada = np.load('/tmp/123.npz')
 >>> type(loada['1'])
 # <class 'numpy.ndarray'>
 ```
-# 确定满足某条件元素的位置和个数
+## 确定满足某条件元素的位置和个数
 [p.count_nonzero](https://numpy.org/doc/stable/reference/generated/numpy.count_nonzero.html)   
 ```python
 >>> xhe_value
@@ -282,4 +282,36 @@ array([2, 3])
 >>> np.count_nonzero(a, axis=1, keepdims=True)
 array([[2],
        [3]])
+```
+## 排序，取topn
+```python
+import numpy as np
+
+arr = np.array([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5])
+
+# 对数组进行排序并倒序排列
+```python
+import numpy as np
+
+arr = np.array([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5])
+
+# 对数组进行排序并倒序排列
+sorted_arr = np.sort(arr)[::-1]
+
+print(sorted_arr)
+# [9 6 5 5 5 4 3 3 2 1 1]
+# 根据第三列数据倒叙排列
+import numpy as np
+
+# 创建二维数组
+arr = np.array([[1, 2, 5], [4, 3, 9], [7, 6, 2]])
+
+# 按第三列排序并倒序排列
+sorted_indices = np.argsort(arr[:, 2])[::-1]
+sorted_arr = arr[sorted_indices]
+
+print(sorted_arr)
+# [[4 3 9]
+#  [1 2 5]
+#  [7 6 2]]
 ```
