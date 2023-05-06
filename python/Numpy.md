@@ -246,3 +246,40 @@ loada = np.load('/tmp/123.npz')
 >>> type(loada['1'])
 # <class 'numpy.ndarray'>
 ```
+# 确定满足某条件元素的位置和个数
+[p.count_nonzero](https://numpy.org/doc/stable/reference/generated/numpy.count_nonzero.html)   
+```python
+>>> xhe_value
+# shape: (341316, 3)
+array([[ 2.39464227,  3.51188682, -1.25613278],
+       [ 0.97641939,  3.80192888, -2.51204615],
+       [ 2.39464227,  3.51188682, -1.85788598],
+       ...,
+       [ 3.2750547 ,  3.38234061, -1.21325211],
+       [ 5.34141073,  2.41687641, -0.69376946],
+       [ 5.34141073,  2.41687641, -0.73062106]])
+# 返回第三列大于0的所有元素的位置
+>>> np.nonzero(xhe_values[:,2] >=0)
+rray([   322,    677,    704, ..., 341064, 341087, 341089]),)
+# 返回第三列大于0的所有元素的个数
+>>> np.count_nonzero(xhe_values[:,2] >=0)
+8624
+# 第一列第二列都大于某值
+xh_array = np.stack((X,H), axis=-1)
+crit_array = np.count_nonzero(xh_array <= [5.4,4], axis=1)
+print(np.count_nonzero(crit_array == 2) / xh_array.shape[0])
+# 官方示例
+>>> np.count_nonzero(np.eye(4))
+4
+>>> a = np.array([[0, 1, 7, 0],
+              [3, 0, 2, 19]])
+>>> np.count_nonzero(a)
+5
+>>> np.count_nonzero(a, axis=0)
+array([1, 1, 2, 1])
+>>> np.count_nonzero(a, axis=1)
+array([2, 3])
+>>> np.count_nonzero(a, axis=1, keepdims=True)
+array([[2],
+       [3]])
+```
