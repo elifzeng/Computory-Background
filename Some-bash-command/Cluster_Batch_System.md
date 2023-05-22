@@ -1,7 +1,10 @@
 # 集群批处理系统
 ## [Glossary](https://info.hpc.sussex.ac.uk/hpc-guide/glossary.html#term-tasks)
 Meaning of `queues` `slots` `job script` `job id` `array job` `tasks` `modules`.
-其他可见`Hand Book`
+其他可见`Hand Book`  
+## [Job State](https://manpages.org/sge_status/5)
+![image](https://github.com/elifzeng/Computory-Background/assets/52747634/a7429ee3-a65f-4feb-9629-21db7e61fb3f)
+
 
 ## Example1
 This is a job script named *test1.sh*.
