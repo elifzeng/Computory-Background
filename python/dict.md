@@ -54,3 +54,15 @@ change
 它识别出'a'是一个已有的key，然后把里面的内容更新了，完全没有发现'a'的value也是一个dictionary， 好单纯的字典方法。。。
 # dict 更改Key值
 ![image](https://user-images.githubusercontent.com/52747634/161745356-7a825766-6edf-4d87-acb2-141a600fba00.png)
+# dict update()方法添加键值对
+字典对象的update()方法，可以将另一个字典全部添加到当前字典中，如果两个字典中存在相同的“键”，则以另一个字典中的“值”为准，对当前字典进行更新  
+```python
+a_dict = { 'ranking': [98, 97] ,  'age': 24 ,  'name': 'DYX' ,  'sex': 'male' }
+#字典中的“值”可以是列表、数字、字符串元组等等,是很宽泛的
+#字典中的“键”要注意不能使用列表、集合、字典作为字典的“键”
+print(a_dict.items())
+#dict_items([('sex', 'male'), ('age', 24), ('name', 'DYX'), ('ranking', [98, 97])])
+a_dict.update( {'a':'a','b':'b'} )  
+print(a_dict)  #查看添加后的字典
+#{'sex': 'male', 'age': 24, 'ranking': [98, 97], 'name': 'DYX', 'a': 'a', 'b': 'b'}
+```
