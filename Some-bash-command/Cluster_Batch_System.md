@@ -360,4 +360,7 @@ date
 ```
 ### 取消任务
 `scancel job_id`  
-eg: `for i in `squeue -u lzeng | grep helium| cut -b 14-19` ; do scancel $i; done`  
+eg: 
+```bash
+for i in `squeue -u lzeng | grep helium| cut -b 14-19` ; do scancel $i; done
+```  
