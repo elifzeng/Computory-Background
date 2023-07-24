@@ -358,3 +358,6 @@ date
 
 # for i in /BIGDATA1/nibs_nhuang_1/lzeng/data/npz_files/??*.npz ;do yhbatch -J $( basename $i )wb97 /BIGDATA1/nibs_nhuang_1/lzeng/run_orca.sh  $i; done
 ```
+### 取消任务
+`scancel job_id`  
+eg: `for i in `squeue -u lzeng | grep helium| cut -b 14-19` ; do scancel $i; done`  
