@@ -246,6 +246,15 @@ loada = np.load('/tmp/123.npz')
 >>> type(loada['1'])
 # <class 'numpy.ndarray'>
 ```
+`.npy`直接储存array，使用时直接`np.load('xxx.npz')`返回的即是np array.  
+```python
+# save
+dm = np.zeros((10, 10), dtype=np.float32)
+np.save('distance_matrix', dm) # add suffix .npy automatly
+# load
+load_dm = np.load('distance_matrix.npy')
+# load_dm is a numpy array
+```
 ## 确定满足某条件元素的位置和个数
 [p.count_nonzero](https://numpy.org/doc/stable/reference/generated/numpy.count_nonzero.html)   
 ```python
