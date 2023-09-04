@@ -68,3 +68,12 @@ cut  [-bn] [file] 或 cut [-c] [file]  或  cut [-df] [file]
 cut -d 'separate symbol' -f field
 ```
 这里贴一个讲解比较详细的[链接](https://www.jianshu.com/p/1bbdbf1aa1bd)(awk, printf也有涉及)
+# Awk
+sdf文件中每个frame用"$$$$"分隔，读取文件，并截取第1个frame:
+```bash
+awk 'BEGIN { RS="\\$\\$\\$\\$" } NR==1 { print }' ACEH_MBZ_noproxim.sdf
+# 同时把$$$$一并加到末尾
+awk 'BEGIN { RS="\\$\\$\\$\\$" } NR==1 { print $0 "$$$$" }' ACEH_MBZ_noproxim.sdf
+# 读取多段，且每个frame间没有多余空行，并输出到temp.sdf文件中
+awk 'BEGIN { RS="\\$\\$\\$\\$" } NR==1 || NR==2 || NR==4 { printf("%s$$$$", $0) }' ACEH_MBZ_noproxim.sdf >../test/temp.sdf
+```
