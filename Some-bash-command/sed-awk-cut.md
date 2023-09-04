@@ -77,3 +77,13 @@ awk 'BEGIN { RS="\\$\\$\\$\\$" } NR==1 { print $0 "$$$$" }' ACEH_MBZ_noproxim.sd
 # 读取多段，且每个frame间没有多余空行，并输出到temp.sdf文件中
 awk 'BEGIN { RS="\\$\\$\\$\\$" } NR==1 || NR==2 || NR==4 { printf("%s$$$$", $0) }' ACEH_MBZ_noproxim.sdf >../test/temp.sdf
 ```
+传递一个列表
+```bash
+#!/bin/bash
+lista=(260228 558920 731921 743844 748656 876950 1046778 1193718 1199211 1261589)
+
+for i in "${lista[@]}"
+do
+    awk -v i="$i" 'BEGIN { RS="\\$\\$\\$\\$" } NR==i { printf("%s$$$$", $0) }' /pubhome/lzeng/data/pair25/ProximityEffect/MBZ_NMA_noproxim.sdf >> /pubhome/lzeng/data/pair25/test/temp.sdf
+done
+```
