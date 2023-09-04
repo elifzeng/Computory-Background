@@ -87,3 +87,4 @@ do
     awk -v i="$i" 'BEGIN { RS="\\$\\$\\$\\$" } NR==i { printf("%s$$$$", $0) }' /pubhome/lzeng/data/pair25/ProximityEffect/MBZ_NMA_noproxim.sdf >> /pubhome/lzeng/data/pair25/test/temp.sdf
 done
 ```
+_Notice_: the first line of output is empty line, may be unreadable for chimera. Delete it and everything will be fine.
