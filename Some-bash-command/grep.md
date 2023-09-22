@@ -46,3 +46,7 @@ $ grep -Ern '.*pdb11as.*:MGDM.*' rot_ACEM_MGDM.sdf
 7297:ACEM-pdb11as-D-ASN-233:MGDM-pdb11as-D-ARG-214
 7373:ACEM-pdb11as-D-ASN-47:MGDM-pdb11as-D-ARG-273
 ```
+## 单纯搜索符号
+```bash
+grep -- "--" filename
+```
