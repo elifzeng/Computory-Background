@@ -12,7 +12,7 @@ source ~/.bashrc
 # 重启terminal
 ```
 ## Install
-1. 在[官方](https://docs.anaconda.com/anaconda/packages/oldpkglists/)查看版本信息，找到需要的版本并下载。条件不允许时可在[清华源](https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/)下载。  
+1. 在[官方](https://docs.anaconda.com/anaconda/packages/oldpkglists/)查看版本信息，找到需要的版本并下载。条件不允许时可在[清华源](https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/)下载。查看linux架构：`cat /proc/version`    
 查看anaconda版本不是用`--version`（这查的是conda的版本），而是用[这种方法](https://blog.csdn.net/zhr199970910/article/details/109902946)：  
 ![image](https://user-images.githubusercontent.com/52747634/197928639-63cd0f83-6be5-4cf0-bb59-2951e44b1cc2.png)
 
