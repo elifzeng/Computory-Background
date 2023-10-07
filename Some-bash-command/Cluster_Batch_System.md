@@ -363,4 +363,14 @@ date
 eg: 
 ```bash
 for i in `squeue -u lzeng | grep helium| cut -b 14-19` ; do scancel $i; done
-```  
+```
+### 查看任务信息
+```bash
+scontrol show job 37856
+scontrol show job 37856| grep JobName
+```
+### 查看节点CPU占用率
+```bash
+sinfo -n k122 -o "%O"
+```
+
