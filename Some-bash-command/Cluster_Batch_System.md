@@ -373,4 +373,18 @@ scontrol show job 37856| grep JobName
 ```bash
 sinfo -n k122 -o "%O"
 ```
-
+### 降低优先级
+```bash
+# Nice为正值是降低优先级，负值是升高优先级
+scontrol update JobId=8388980 Nice=20
+```
+### 预留结点
+参考：
+1. https://slurm.schedmd.com/reservations.html
+2. https://slurm.schedmd.com/scontrol.html
+```bash
+# 找马工运行下列命令，获取返回的reservation name
+scontrol create reservation  starttime=now duration=infinite user=lzeng flags=PURGE_COMP,IGNORE_JOBS Nodes=k[121-141]
+# 提交任务
+for i in ~/data/pair25/NequipData/ETOH/Sel2QM/less/*.sdf;do sbatch --reservation=RESERVATION_NAME -J $( basename $i )wb97 /pubhome/lzeng/CPFrags/run_orca/qm_selection/cal_energy_wb97.sh $i; done
+```
