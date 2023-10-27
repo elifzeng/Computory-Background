@@ -76,6 +76,8 @@ awk 'BEGIN { RS="\\$\\$\\$\\$" } NR==1 { print }' ACEH_MBZ_noproxim.sdf
 awk 'BEGIN { RS="\\$\\$\\$\\$" } NR==1 { print $0 "$$$$" }' ACEH_MBZ_noproxim.sdf
 # 读取多段，且每个frame间没有多余空行，并输出到temp.sdf文件中
 awk 'BEGIN { RS="\\$\\$\\$\\$" } NR==1 || NR==2 || NR==4 { printf("%s$$$$", $0) }' ACEH_MBZ_noproxim.sdf >../test/temp.sdf
+# 读取前128个frame，没有多余空行，同时把$$$$一并加到末尾
+awk 'BEGIN{RS="\\$\\$\\$\\$"} {if(NR<=128) {printf "%s%s", $0, (NR==128?"":"$$$$")}}' MBZ_N1PA_01_nequipwb.sdf > 128.sdf
 ```
 传递一个列表
 ```bash
