@@ -7,7 +7,7 @@ print(cluster_summary.to_string)
 ## [csv operation](https://www.runoob.com/pandas/pandas-csv-file.html)
 [简单的读写索引](https://blog.csdn.net/Parzival_/article/details/114240650)
 
-## [DataFrame operation]
+## DataFrame operation
 当用`pd.read_csv()`读入文件数据后，数据类型变为`DataFrame`。
 
 ## Example
@@ -77,3 +77,27 @@ plt.xticks(rotation=80)
 plt.savefig('Halogen_LysN_Dist.jpg')
 plt.show()
 ```
+## Sort by one column
+```python
+# coding=utf-8
+import pandas as pd
+ 
+ 
+# read_csv读取csv格式的数据，返回DataFrame
+df = pd.read_csv("./dogNames.csv")
+print(type(df))   # <class 'pandas.core.frame.DataFrame'>
+# print(df.head(10))  # head(10) 显示前10条数据，默认前5条
+ 
+ 
+# dataFrame中排序的方法
+df = df.sort_values(by="Count_AnimalName",ascending=False)  # by指定按哪列排序。ascending表示是否升序
+print(df.head())
+'''
+      Row_Labels  Count_AnimalName
+1149       BELLA              1195
+9133         MAX              1153
+2653     CHARLIE               856
+3244        COCO               852
+12361      ROCKY               823
+'''
+ ```
