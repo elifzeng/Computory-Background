@@ -83,6 +83,8 @@ awk "/^ETOH-pdb5dl7-A-THR-276:MBZ-pdb5dl7-A-PHE-174/,/^M  END/" ETOH_MBZ_noproxi
 # 截取特定字段开头，特殊符号结尾的frame
 # \$为反转义，最后一个$表示匹配以“$$$$”结尾的行。不加这个$会匹配以“$$$$”加上一行回车空行为结尾的行。
 awk '/^ACEH-pdb2a0m-A-GLH-281:ACEH-pdb2a0m-A-ASH-236/,/^\$\$\$\$$/' ACEH_ACEH_noproxim.sdf
+# 在脚本里运行上一行命令
+awk -v reprname=$1  '$0 ~ reprname,/^\$\$\$\$$/' $2
 ```
 传递一个列表
 ```bash
