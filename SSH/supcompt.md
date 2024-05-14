@@ -167,7 +167,28 @@ echo Processing $filebase
 python /BIGDATA1/nibs_nhuang_1/lzeng/cal_energy_npz.py $1 -o $oup
 date
 ```
+# 浙江超算mamba环境
+为了不打扰别人使用，一般不会将mamba启动命令写在`~/.bashrc`里，而是写在自己目录下，并在提交任务脚本里写上`source xxx/lzeng/mambabashrc.sh`:
+```bash
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/public1/home/scg0364/source/lzeng/mambaforge/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/public1/home/scg0364/source/lzeng/mambaforge/etc/profile.d/conda.sh" ]; then
+        . "/public1/home/scg0364/source/lzeng/mambaforge/etc/profile.d/conda.sh"
+    else
+        export PATH="/public1/home/scg0364/source/lzeng/mambaforge/bin:$PATH"
+    fi
+fi
+unset __conda_setup
 
+if [ -f "/public1/home/scg0364/source/lzeng/mambaforge/etc/profile.d/mamba.sh" ]; then
+    . "/public1/home/scg0364/source/lzeng/mambaforge/etc/profile.d/mamba.sh"
+fi
+# <<< conda initialize <<<
+```
 
 
 
