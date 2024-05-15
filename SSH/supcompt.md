@@ -168,6 +168,7 @@ python /BIGDATA1/nibs_nhuang_1/lzeng/cal_energy_npz.py $1 -o $oup
 date
 ```
 # 浙江超算mamba环境
+https://blog.csdn.net/qiaoyurensheng/article/details/125944868
 为了不打扰别人使用，一般不会将mamba启动命令写在`~/.bashrc`里，而是写在自己目录下，并在提交任务脚本里写上`source xxx/lzeng/mambabashrc.sh`:
 ```bash
 # >>> conda initialize >>>
