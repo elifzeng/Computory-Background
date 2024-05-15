@@ -188,6 +188,9 @@ if [ -f "/public1/home/scg0364/source/lzeng/mambaforge/etc/profile.d/mamba.sh" ]
     . "/public1/home/scg0364/source/lzeng/mambaforge/etc/profile.d/mamba.sh"
 fi
 # <<< conda initialize <<<
+# orca
+source /public1/soft/modules/module.sh
+module load orca
 ```
 
 
