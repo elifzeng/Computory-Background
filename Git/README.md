@@ -279,3 +279,13 @@ Dropped stash@{0} (364e91f3f268f0900bc3ee613f9f733e82aaed43)
 ```
 查看指定stash的diff、从stash创建分支见ref: [git-stash用法小结](https://www.cnblogs.com/tocy/p/git-stash-reference.html)  
 
+# 恢复被误删的文件！！
+ref: https://juejin.cn/post/7174989433593626661
+![image](https://github.com/elifzeng/Computory-Background/assets/52747634/ff2d5b74-2788-4c9b-93a8-0dab7499675a)  
+ ![image](https://github.com/elifzeng/Computory-Background/assets/52747634/fe27c900-0469-4726-a4f3-24802972c4ac)  
+ ![image](https://github.com/elifzeng/Computory-Background/assets/52747634/d333c04d-2d3e-420c-bc3b-2894dbd7fef7)  
+ 
+
+
+
+
