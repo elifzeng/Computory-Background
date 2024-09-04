@@ -74,6 +74,9 @@ js = json.dumps(d1) # json.dumps 用于将 Python 对象编码成 JSON 字符串
 f = open(fp,'w')
 f.write(js)
 f.close()
+# 或者
+with open(str(oup_dir / "inteng_nequip.json"), 'w') as f:
+    json.dump(inteng_nequip_dict, f)
 ```
 json.dumps()中有几个重要参数：
 ```python
