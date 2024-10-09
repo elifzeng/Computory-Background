@@ -87,7 +87,12 @@ Disk quotas for usr lzeng (uid 5056):
       /pubhome/  1.667T      0k      0k       - 3500000* 3000000 3500000       -
 uid 5056 is using default block quota setting
 ```
-上面可以看到，是文件数超额里，接下来怎么解决自己想办法吧。。。  
+上面可以看到，是文件数超额里。  
+```
+使用 du -sh * 命令查看当前目录下每个文件/文件夹的大小。
+使用 du -a | sort -n -r | head -n 10 查看前 10 个最大的文件或文件夹。
+使用 du -h --max-depth=1 来查看当前目录下每个子目录的大小。
+```
 ## mpirun
 k队列上跑orca内存不够。因此采取“占据32核，实际跑20核”的办法。需要[使用mpirun](https://www.cnblogs.com/devilmaycry812839668/p/15132333.html)。  
 示例：
