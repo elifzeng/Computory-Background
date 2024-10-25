@@ -193,7 +193,33 @@ fi
 source /public1/soft/modules/module.sh
 module load orca
 ```
+## 提交脚本备份
+```bash
+#!/bin/bash
+#SBATCH -p amd_512
+#SBATCH -n 128  -N 1
+#SBATCH -o /public1/home/scg0364/source/lzeng/error/mgdm.o%j
+#SBATCH -e /public1/home/scg0364/source/lzeng/error/mgdm.e%j
+##SBATCH -D /pubhome/lzeng/CPFrags/run_orca/qm_selection/
 
+date
+source ~/.bashrc
+source /public1/home/scg0364/source/lzeng/mambabashrc.sh
+mamba activate qmcal
+
+# for i in $(ls /pubhome/lzeng/data/pair25/rot_split/??*);do sbatch -J $( basename $i )wb97 /pubhome/lzeng/CPFrags/run_orca/qm_selection/cal_energy_wb97.sh $i; done
+
+hostname
+# get input file and output path
+# for wb973c
+
+filebase=$( basename $1 )
+m=$( echo $filebase | cut -d "." -f 1 )
+oup="/public1/home/scg0364/source/lzeng/data/$m"
+echo Processing $filebase
+python /public1/home/scg0364/source/lzeng/scripts/cal_energy.py  $1 -qm wb973c -o $oup
+echo Results are saved 'in' $oup'.json.gz'
+```
 
 
 
