@@ -56,6 +56,7 @@ print("Child process end.")
 # 关于进程池阻塞可以看[这篇博文](https://www.cnblogs.com/tujia/p/13684251.html)，或者/home/elifzeng/Computory-Background/python/Multiprocessing_and_multithreading/Thread_Blocking.py
 
 # Pool + map
+# map方法适用于只有一个参数的函数。它将一个可迭代对象（如列表）中的每个元素作为参数传递给目标函数，并返回一个结果列表。
 from multiprocessing import Pool
 
 
@@ -70,6 +71,19 @@ if __name__ == "__main__":
     print("test")
     pool.close()        # 关闭进程池，不再接受新的进程
     pool.join()         # 主进程阻塞等待子进程的退出
+
+# Pool + starmap
+# starmap 方法适用于有多个参数的函数。它将一个可迭代对象中的每个元素（通常是一个元组）解包后作为参数传递给目标函数，并返回一个结果列表。
+from multiprocessing import Pool
+
+def multiply(x, y):
+    return x * y
+
+if __name__ == '__main__':
+    with Pool(4) as p:
+        result = p.starmap(multiply, [(1, 2), (3, 4), (5, 6)])
+    print(result)  # 输出: [2, 12, 30]
+    
 # %%
 # 异步进程池（非阻塞）
 from multiprocessing import Pool
