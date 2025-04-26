@@ -35,7 +35,7 @@ Out[8]: <HDF5 dataset "ds1_2": shape (20,), type "|O">
 In [10]: ds1_2  
 Out[10]: <HDF5 dataset "ds1_2": shape (20,), type "|O">  
 
-In [17]: ds1_2.value  
+In [17]: ds1_2[:]  
 Out[17]: 
 array(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
        '', '', ''], dtype=object)  
