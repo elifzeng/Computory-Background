@@ -7,7 +7,28 @@ cluster_summary = pd.read_csv('CltResults/temp/cluster_summary.csv',index_col=0)
 print(cluster_summary.to_string)
 ```
 ## [csv operation](https://www.runoob.com/pandas/pandas-csv-file.html)
-[简单的读写索引](https://blog.csdn.net/Parzival_/article/details/114240650)
+[简单的读写索引](https://blog.csdn.net/Parzival_/article/details/114240650)  
+
+```python
+>>> values[values['Name'].str.startswith('ACEM_MPHE_')]
+	Unnamed: 0	Name	ωB97X-D3BJ/def2-TZVPP Energy
+329835	329835	ACEM_MPHE_0	-1.900041
+329836	329836	ACEM_MPHE_1	-9.890807
+329837	329837	ACEM_MPHE_2	-2.451100
+329838	329838	ACEM_MPHE_3	2.570619
+329839	329839	ACEM_MPHE_4	1.067010
+...	...	...	...
+360666	360666	ACEM_MPHE_30831	-2.374953
+360667	360667	ACEM_MPHE_30832	-2.743092
+360668	360668	ACEM_MPHE_30833	-2.057581
+360669	360669	ACEM_MPHE_30834	-6.927622
+360670	360670	ACEM_MPHE_30835	-4.154526
+
+>>> values[values['Name'] == 'ACEM_MPHE_0']
+	Unnamed: 0	Name	ωB97X-D3BJ/def2-TZVPP Energy
+329835	329835	ACEM_MPHE_0	-1.900041
+
+```
 
 ## DataFrame operation
 当用`pd.read_csv()`读入文件数据后，数据类型变为`DataFrame`。
