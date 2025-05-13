@@ -46,6 +46,7 @@ def report_save(infpath, cl, random_labels):
 
 	
 	outDf.to_csv(oupath)
+	# 若想要dataframe中无'Unnamed:0'这一列，则写为outDf.to_csv(oupath, index=False)。这样pandas就不会自动添加一列索引
   print 'cluster summary saved in ' + oupath
 ```
 ```python
@@ -103,3 +104,23 @@ print(df.head())
 12361      ROCKY               823
 '''
  ```
+## 报错 `ValueError: If using all scalar values, you must pass an index`
+```python
+# old dict (error)
+>>> description
+{'name': 'ωB97X-D3BJ/def2-TZVPP Energy',
+ 'program': 'ORCA 5.0.3',
+ 'method': 'ωB97X-D3BJ',
+ 'basis': 'def2-TZVPP',
+ 'driver': 'energy',
+ 'units': 'kcal/mol'}
+# new dict (correct)
+>>> description = {k:[v] for k, v in description.items()}
+>>> description
+{'name': ['ωB97X-D3BJ/def2-TZVPP Energy'],
+ 'program': ['ORCA 5.0.3'],
+ 'method': ['ωB97X-D3BJ'],
+ 'basis': ['def2-TZVPP'],
+ 'driver': ['energy'],
+ 'units': ['kcal/mol']}
+```
