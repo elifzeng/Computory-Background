@@ -16,3 +16,4 @@ Error: connect ENOENT /run/user/5056/vscode-ipc-2d90051b-b011-4d07-9690-411c2e13
 resolution:
 run on bash:`VSCODE_IPC_HOOK_CLI=$( lsof | grep $UID/vscode-ipc | awk '{print $(NF-1)}' | head -n 1 )`  
 [ref](https://github.com/microsoft/vscode-remote-release/issues/6997#issue-1319650016) 🐈‍
+
