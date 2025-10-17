@@ -5,6 +5,17 @@
 # index_col=0用于指定以第一列的内容作为整个表格的index
 cluster_summary = pd.read_csv('CltResults/temp/cluster_summary.csv',index_col=0)
 print(cluster_summary.to_string)
+
+# Create a DataFrame
+df = pd.DataFrame({
+'Name': ['Alice', 'Bob', 'Charlie'],
+'Age': [25, 32, 37]
+})
+
+# Iterate over DataFrame rows
+for index, row in df.iterrows():
+print(f"Row {index} data:")
+print(f"Name: {row['Name']}, Age: {row['Age']}")
 ```
 ## [csv operation](https://www.runoob.com/pandas/pandas-csv-file.html)
 [简单的读写索引](https://blog.csdn.net/Parzival_/article/details/114240650)  
