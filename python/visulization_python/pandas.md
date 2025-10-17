@@ -62,8 +62,48 @@ print(df.at[4, 'B']) # Output: 10
 ```
 
 ## DataFrame operation
-当用`pd.read_csv()`读入文件数据后，数据类型变为`DataFrame`。
+当用`pd.read_csv()`读入文件数据后，数据类型变为`DataFrame`。  
 
+某row满足true_energy和mol_id都为指定值时，替换该row的另一个属性值：
+```python
+# 满足一个条件
+import pandas as pd
+
+df = pd.DataFrame({
+    "true_energy": [1.0, 2.0, 3.0, 2.0],
+    "pred_energy": [0.9, 1.8, 2.9, 2.1]
+})
+
+# 想把 true_energy == 2.0 的行的 pred_energy 改成 999
+df.loc[df["true_energy"] == 2.0, "pred_energy"] = 999
+
+print(df)
+
+   true_energy  pred_energy
+0          1.0          0.9
+1          2.0        999.0
+2          3.0          2.9
+3          2.0        999.0
+
+# 满足两个条件
+import pandas as pd
+df = pd.DataFrame({
+    "mol_id": [1, 1, 2, 2],
+    "true_energy": [1.0, 2.0, 2.0, 3.0],
+    "pred_energy": [0.9, 1.8, 2.1, 2.9]
+})
+
+# 想把 mol_id == 2 且 true_energy == 2.0 的行的 pred_energy 改成 999
+df.loc[(df["mol_id"] == 2) & (df["true_energy"] == 2.0), "pred_energy"] = 999
+
+print(df)
+
+   mol_id  true_energy  pred_energy
+0       1          1.0          0.9
+1       1          2.0          1.8
+2       2          2.0        999.0
+3       2          3.0          2.9
+```
 ## Example
 ### Write .csv
 ```python
