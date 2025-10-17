@@ -14,8 +14,15 @@ df = pd.DataFrame({
 
 # Iterate over DataFrame rows
 for index, row in df.iterrows():
-print(f"Row {index} data:")
-print(f"Name: {row['Name']}, Age: {row['Age']}")
+	print(f"Row {index} data:")
+	print(f"Name: {row['Name']}, Age: {row['Age']}")
+
+Row 0 data:
+Name: Alice, Age: 25
+Row 1 data:
+Name: Bob, Age: 32
+Row 2 data:
+Name: Charlie, Age: 37
 ```
 ## [csv operation](https://www.runoob.com/pandas/pandas-csv-file.html)
 [简单的读写索引](https://blog.csdn.net/Parzival_/article/details/114240650)  
